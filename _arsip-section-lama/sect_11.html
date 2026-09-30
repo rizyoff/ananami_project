@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Landscape Construction</title>
+    
+    <!-- Google Fonts for Typography Matching Image -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --bg-dark: #070d08;
+            --card-dark: #0d1610;
+            --lime-bright: #cbf233;
+            --lime-glow: rgba(203, 242, 51, 0.35);
+            --text-white: #ffffff;
+            --text-muted: #95a298;
+            --border-dark: rgba(255, 255, 255, 0.08);
+            --font-cinzel: 'Cinzel', serif;
+            --font-montserrat: 'Montserrat', sans-serif;
+            --font-script: 'Alex Brush', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #030604;
+            color: var(--text-white);
+            font-family: var(--font-montserrat);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 12px;
+        }
+
+        /* 16:9 Presentation Frame Container */
+        .presentation-slide {
+            width: 100%;
+            max-width: 1600px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(203, 242, 51, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(203, 242, 51, 0.04) 0%, transparent 50%);
+            border: 1px solid rgba(203, 242, 51, 0.2);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(203, 242, 51, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Contour Lines & Ambient Background Layer */
+        .contour-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.12;
+            background-image: url("data:image/svg+xml,%3Csvg width='800' height='800' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100,200 C100,100 300,400 500,200 C700,0 800,300 900,200 M-100,350 C150,250 250,550 550,350 C750,150 850,450 950,350 M-100,500 C200,400 200,700 600,500 C800,300 900,600 1000,500' stroke='%23cbf233' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-size: cover;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Decorative Leaf Overlay Right Corner */
+        .tropical-leaf-bg {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 380px;
+            height: 380px;
+            background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.22;
+            mix-blend-mode: lighten;
+            filter: contrast(1.3) saturate(1.2);
+            mask-image: radial-gradient(circle at 70% 30%, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 70% 30%, black 30%, transparent 80%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .tropical-leaf-bottom-bg {
+            position: absolute;
+            bottom: -40px;
+            right: -40px;
+            width: 480px;
+            height: 480px;
+            background-image: url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.35;
+            mix-blend-mode: screen;
+            filter: brightness(0.7) contrast(1.4);
+            mask-image: radial-gradient(circle at 60% 60%, black 20%, transparent 75%);
+            -webkit-mask-image: radial-gradient(circle at 60% 60%, black 20%, transparent 75%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Slide Body Layout */
+        .slide-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr 210px;
+            gap: 20px;
+            padding: 24px 28px 12px 28px;
+            flex: 1;
+            z-index: 5;
+            height: calc(100% - 48px);
+        }
+
+        /* Left Column Content */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Branding Top Left Header */
+        .brand-header-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .brand-logo-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-title {
+            font-family: var(--font-cinzel);
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-white);
+            line-height: 1;
+        }
+
+        .logo-subtitle {
+            font-size: 0.5rem;
+            letter-spacing: 3.5px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        .vertical-divider {
+            width: 1px;
+            height: 28px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .brand-pillars {
+            font-size: 0.52rem;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        /* Main Section Title */
+        .main-title-block {
+            margin-bottom: 12px;
+        }
+
+        .main-title-block h1 {
+            font-family: var(--font-cinzel);
+            font-size: 2.35rem;
+            line-height: 0.95;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--text-white);
+        }
+
+        .main-title-block h1 .highlight-lime {
+            color: var(--lime-bright);
+            display: block;
+            text-shadow: 0 0 20px var(--lime-glow);
+        }
+
+        .sub-tagline {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: var(--text-white);
+            font-weight: 600;
+            margin-top: 6px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .description-paragraph {
+            font-size: 0.54rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+            max-width: 95%;
+            font-weight: 400;
+        }
+
+        /* Section Section Headers */
+        .section-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 14px;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-cinzel);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--text-white);
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 3.5px;
+            height: 14px;
+            background-color: var(--lime-bright);
+        }
+
+        .section-subtext {
+            font-size: 0.46rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Leveling Planterbox 6-Grid */
+        .planterbox-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        /* Photo Cards Common Style */
+        .photo-card {
+            position: relative;
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 2px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .photo-card:hover {
+            border-color: var(--lime-bright);
+            box-shadow: 0 0 15px rgba(203, 242, 51, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9) contrast(1.05);
+            transition: transform 0.5s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(1);
+        }
+
+        /* Card Overlay Tag */
+        .card-tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.6) 70%, transparent 100%);
+            padding: 6px 6px 4px 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-number {
+            background-color: var(--lime-bright);
+            color: #050a06;
+            font-size: 0.52rem;
+            font-weight: 800;
+            padding: 1px 4px;
+            border-radius: 1px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .tag-title {
+            font-size: 0.46rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Feature Card 6 in Planterbox Grid */
+        .quote-card {
+            background: radial-gradient(circle at center, #112014 0%, #08110a 100%);
+            border: 1px solid rgba(203, 242, 51, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .quote-card svg {
+            width: 22px;
+            height: 22px;
+            color: var(--lime-bright);
+            margin-bottom: 6px;
+            filter: drop-shadow(0 0 6px rgba(203, 242, 51, 0.4));
+        }
+
+        .quote-card p {
+            font-size: 0.48rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-white);
+            line-height: 1.35;
+            text-transform: uppercase;
+        }
+
+        /* Center Column - Tree Spade Grid */
+        .center-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tree-spade-top-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .tree-spade-bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            flex: 1;
+        }
+
+        .tree-spade-bottom-grid .photo-card {
+            aspect-ratio: auto;
+            height: 100%;
+            min-height: 160px;
+        }
+
+        /* Far Right Column - Key Features & Cursive Text */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-left: 8px;
+            z-index: 10;
+        }
+
+        .feature-item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .feature-icon-wrap {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--lime-bright);
+        }
+
+        .feature-icon-wrap svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 1.5;
+            filter: drop-shadow(0 0 5px rgba(203, 242, 51, 0.3));
+        }
+
+        .feature-label {
+            font-size: 0.48rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            line-height: 1.2;
+            max-width: 130px;
+        }
+
+        /* Script Calligraphy Text Bottom Right */
+        .cursive-calligraphy-block {
+            margin-top: auto;
+            margin-bottom: 12px;
+            padding-right: 10px;
+        }
+
+        .cursive-text {
+            font-family: var(--font-script);
+            font-size: 2.1rem;
+            line-height: 0.95;
+            color: var(--lime-bright);
+            text-shadow: 0 0 15px rgba(203, 242, 51, 0.4);
+            transform: rotate(-4deg);
+            display: block;
+        }
+
+        /* Bottom Footer Bar */
+        .footer-bar {
+            height: 38px;
+            background: rgba(4, 8, 5, 0.95);
+            border-top: 1px solid rgba(203, 242, 51, 0.2);
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 20;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .footer-left .brand-name {
+            color: var(--text-white);
+            font-weight: 800;
+            font-family: var(--font-cinzel);
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.5rem;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .footer-lime-line {
+            width: 28px;
+            height: 2px;
+            background-color: var(--lime-bright);
+            box-shadow: 0 0 8px var(--lime-bright);
+        }
+
+        /* Entrance Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-fade {
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Lightbox Image Preview Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 6, 4, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #09120b;
+            border: 1px solid var(--lime-bright);
+            border-radius: 4px;
+            padding: 20px;
+            max-width: 650px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 30px rgba(203, 242, 51, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+        }
+
+        .modal-box img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header-tag {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-num {
+            background-color: var(--lime-bright);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 2px;
+        }
+
+        .modal-title-text {
+            font-family: var(--font-cinzel);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1.5px;
+        }
+
+        .modal-desc-text {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .modal-close-btn {
+            align-self: flex-end;
+            background: var(--lime-bright);
+            color: #000;
+            border: none;
+            padding: 6px 18px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 16:9 Presentation Main Frame Container -->
+    <div class="presentation-slide">
+        
+        <!-- Ambient Topographic Lines & Tropical Leaf Background Overlays -->
+        <div class="contour-overlay"></div>
+        <div class="tropical-leaf-bg"></div>
+        <div class="tropical-leaf-bottom-bg"></div>
+
+        <!-- Main Slide Body Content -->
+        <div class="slide-body">
+
+            <!-- LEFT COLUMN: Branding Header, Main Title & Leveling Planterbox Section -->
+            <div class="left-column anim-fade" style="animation-delay: 0.1s;">
+                
+                <div>
+                    <!-- Top Left Branding Block -->
+                    <div class="brand-header-row">
+                        <div class="brand-logo-group">
+                            <div class="logo-title-wrap">
+                                <!-- Leaf Icon SVG -->
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#cbf233" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 4.75-3.5 8-8 8z"></path>
+                                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                                </svg>
+                                <div class="logo-title">ANANAMI</div>
+                            </div>
+                            <div class="logo-subtitle">LANDSCAPE</div>
+                        </div>
+                        <div class="vertical-divider"></div>
+                        <div class="brand-pillars">
+                            NATURE<br>
+                            PEOPLE<br>
+                            BETTER SPACES
+                        </div>
+                    </div>
+
+                    <!-- Main Section Title Block -->
+                    <div class="main-title-block">
+                        <h1>LANDSCAPE<br><span class="highlight-lime">CONSTRUCTION</span></h1>
+                        <div class="sub-tagline">BUILDING GREENER TOMORROW</div>
+                        <p class="description-paragraph">
+                            From initial earthworks to the final touches of hardscaping and softscaping, we deliver precise landscape construction solutions. This portfolio reflects our commitment to robust structures and captivating aesthetics. We invite you to explore our finest work.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- LEVELING PLANTERBOX Section -->
+                <div>
+                    <div class="section-header-bar">
+                        <div class="section-title">LEVELING PLANTERBOX</div>
+                        <div class="section-subtext">SOLID FOUNDATION FOR GREEN LIVING</div>
+                    </div>
+
+                    <!-- 6-Grid Planterbox Photos -->
+                    <div class="planterbox-grid">
+                        
+                        <!-- 01 GEOTEXTILE & DRAINAGE -->
+                        <div class="photo-card" data-num="01" data-title="GEOTEXTILE & DRAINAGE" data-img="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80" data-desc="Installation of high-grade permeable geotextile membrane layer to prevent soil erosion while maintaining optimum drainage in planter structures.">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400&q=80" alt="Geotextile & Drainage">
+                            <div class="card-tag">
+                                <span class="tag-number">01</span>
+                                <span class="tag-title">GEOTEXTILE & DRAINAGE</span>
+                            </div>
+                        </div>
+
+                        <!-- 02 DRAINAGE INSTALLATION -->
+                        <div class="photo-card" data-num="02" data-title="DRAINAGE INSTALLATION" data-img="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80" data-desc="Precision placement of perforated PVC drainage pipes and aggregate gravel layers for efficient water run-off management.">
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" alt="Drainage Installation">
+                            <div class="card-tag">
+                                <span class="tag-number">02</span>
+                                <span class="tag-title">DRAINAGE INSTALLATION</span>
+                            </div>
+                        </div>
+
+                        <!-- 03 SOIL FILLING -->
+                        <div class="photo-card" data-num="03" data-title="SOIL FILLING" data-img="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80" data-desc="Layering nutrient-rich organic soil medium conditioned specifically for Balinese tropical plant species root development.">
+                            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=400&q=80" alt="Soil Filling">
+                            <div class="card-tag">
+                                <span class="tag-number">03</span>
+                                <span class="tag-title">SOIL FILLING</span>
+                            </div>
+                        </div>
+
+                        <!-- 04 LEVELING PROCESS -->
+                        <div class="photo-card" data-num="04" data-title="LEVELING PROCESS" data-img="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=800&q=80" data-desc="Precise laser leveling of planterbox concrete copings and surface lines to align with architectural site plans.">
+                            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=400&q=80" alt="Leveling Process">
+                            <div class="card-tag">
+                                <span class="tag-number">04</span>
+                                <span class="tag-title">LEVELING PROCESS</span>
+                            </div>
+                        </div>
+
+                        <!-- 05 FINAL PREPARATION -->
+                        <div class="photo-card" data-num="05" data-title="FINAL PREPARATION" data-img="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" data-desc="Structural inspection and waterproofing coat seal before softscaping plant introduction.">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" alt="Final Preparation">
+                            <div class="card-tag">
+                                <span class="tag-number">05</span>
+                                <span class="tag-title">FINAL PREPARATION</span>
+                            </div>
+                        </div>
+
+                        <!-- 06 QUOTE CARD -->
+                        <div class="photo-card quote-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 4.75-3.5 8-8 8z"></path>
+                                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                            </svg>
+                            <p>DETAILS<br>MAKE LASTING<br>LANDSCAPES</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CENTER COLUMN: TREE SPADE Section -->
+            <div class="center-column anim-fade" style="animation-delay: 0.25s;">
+                
+                <div class="section-header-bar">
+                    <div class="section-title">TREE SPADE</div>
+                    <div class="section-subtext">EXPERT HANDLING FOR A GREENER TOMORROW</div>
+                </div>
+
+                <!-- Top Row (3 items) -->
+                <div class="tree-spade-top-grid">
+                    
+                    <!-- 01 TREE LIFTING -->
+                    <div class="photo-card" data-num="01" data-title="TREE LIFTING" data-img="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80" data-desc="Heavy-duty hydraulic crane rigging for lifting mature trees with full root ball intact.">
+                        <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=400&q=80" alt="Tree Lifting">
+                        <div class="card-tag">
+                            <span class="tag-number">01</span>
+                            <span class="tag-title">TREE LIFTING</span>
+                        </div>
+                    </div>
+
+                    <!-- 02 PREPARATION -->
+                    <div class="photo-card" data-num="02" data-title="PREPARATION" data-img="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80" data-desc="Root pruning, burlap wrapping, and foliage crown pruning to reduce transplant shock.">
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=400&q=80" alt="Preparation">
+                        <div class="card-tag">
+                            <span class="tag-number">02</span>
+                            <span class="tag-title">PREPARATION</span>
+                        </div>
+                    </div>
+
+                    <!-- 03 TRANSPORT -->
+                    <div class="photo-card" data-num="03" data-title="TRANSPORT" data-img="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80" data-desc="Secure long-distance transport with moisture retention covers to protect specimen plants.">
+                        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80" alt="Transport">
+                        <div class="card-tag">
+                            <span class="tag-number">03</span>
+                            <span class="tag-title">TRANSPORT</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Row (2 larger items) -->
+                <div class="tree-spade-bottom-grid">
+                    
+                    <!-- 04 PLANTING PROCESS -->
+                    <div class="photo-card" data-num="04" data-title="PLANTING PROCESS" data-img="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a81?auto=format&fit=crop&w=800&q=80" data-desc="Precision alignment and manual ground support by expert arborists during root ball lowering into prepared pit.">
+                        <img src="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a81?auto=format&fit=crop&w=600&q=80" alt="Planting Process">
+                        <div class="card-tag">
+                            <span class="tag-number">04</span>
+                            <span class="tag-title">PLANTING PROCESS</span>
+                        </div>
+                    </div>
+
+                    <!-- 05 FINAL POSITIONING -->
+                    <div class="photo-card" data-num="05" data-title="FINAL POSITIONING" data-img="https://images.unsplash.com/photo-1584467541268-b040f83be3fd?auto=format&fit=crop&w=800&q=80" data-desc="360-degree rotation adjustment for optimum sunlight angle and architectural aesthetic harmony.">
+                        <img src="https://images.unsplash.com/photo-1584467541268-b040f83be3fd?auto=format&fit=crop&w=600&q=80" alt="Final Positioning">
+                        <div class="card-tag">
+                            <span class="tag-number">05</span>
+                            <span class="tag-title">FINAL POSITIONING</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Key Feature Icons & Cursive Script Overlay -->
+            <div class="right-column anim-fade" style="animation-delay: 0.4s;">
+                
+                <!-- 4 Feature Badges with Line Art SVGs -->
+                <div class="feature-item-list">
+                    
+                    <!-- 1. HEALTHY TRANSPLANTATION -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2v20M12 12c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6zM12 16c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-label">HEALTHY TRANSPLANTATION</div>
+                    </div>
+
+                    <!-- 2. SAFE & PRECISE EXECUTION -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <path d="M9 12l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-label">SAFE & PRECISE EXECUTION</div>
+                    </div>
+
+                    <!-- 3. EXPERIENCED TEAM -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 4.75-3.5 8-8 8z"></path>
+                                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-label">EXPERIENCED TEAM</div>
+                    </div>
+
+                    <!-- 4. BEAUTIFUL RESULTS -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path>
+                                <path d="M12 12v6M9 15h6"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-label">BEAUTIFUL RESULTS</div>
+                    </div>
+
+                </div>
+
+                <!-- Calligraphy Script Text Overlaid on Foliage -->
+                <div class="cursive-calligraphy-block">
+                    <span class="cursive-text">Greener<br>Spaces<br>Brighter<br>Lives</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BOTTOM FOOTER BAR -->
+        <div class="footer-bar">
+            <div class="footer-left">
+                <span class="brand-name">ANANAMI</span> LANDSCAPE <span style="opacity: 0.3;">|</span> DESIGN <span style="opacity: 0.3;">|</span> BUILD <span style="opacity: 0.3;">|</span> MAINTAIN
+            </div>
+            <div class="footer-right">
+                <span>ANANAMILANDSCAPE.CO.ID</span>
+                <div class="footer-lime-line"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Lightbox Inspection Modal -->
+    <div class="modal-overlay" id="photoModal">
+        <div class="modal-box">
+            <div class="modal-header-tag">
+                <div class="modal-num" id="modalNum">01</div>
+                <div class="modal-title-text" id="modalTitle">GEOTEXTILE & DRAINAGE</div>
+            </div>
+            <img src="" alt="High Res Construction Step" id="modalImg">
+            <p class="modal-desc-text" id="modalDesc">Detailed process description goes here.</p>
+            <button class="modal-close-btn" id="modalClose">CLOSE INSPECTION</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const photoCards = document.querySelectorAll('.photo-card:not(.quote-card)');
+            const modal = document.getElementById('photoModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalNum = document.getElementById('modalNum');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalClose = document.getElementById('modalClose');
+
+            // Open Modal on Card Click
+            photoCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const num = card.getAttribute('data-num');
+                    const title = card.getAttribute('data-title');
+                    const img = card.getAttribute('data-img');
+                    const desc = card.getAttribute('data-desc');
+
+                    modalNum.textContent = num;
+                    modalTitle.textContent = title;
+                    modalImg.src = img;
+                    modalDesc.textContent = desc;
+
+                    modal.classList.add('active');
+                });
+            });
+
+            // Close Modal Events
+            modalClose.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // Keyboard ESC to Close
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

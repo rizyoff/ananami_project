@@ -1,0 +1,95 @@
+/* =========================================================
+   tokens.css — Design tokens terpusat untuk Ananami Landscape
+   Diekstrak dari kode existing. JANGAN ubah nilai di sini
+   tanpa konfirmasi — ini adalah identitas brand yang dikunci.
+   ========================================================= */
+
+:root {
+  /* ---------- Color: Background ---------- */
+  --bg-primary: #0a0d0a;
+  --bg-secondary: #0a0d09;
+  --bg-panel: #10140f;
+  --bg-card: rgba(20, 29, 23, 0.75);
+  --bg-card-solid: #141d17;
+  --bg-dark: #050806;
+  --bg-darker: #020403;
+
+  /* ---------- Color: Brand / Accent ---------- */
+  --green: #8ac541;
+  --green-bright: #9fd356;
+  --lime: #8bf736;
+  --lime-bright: #d1ea4b;
+  --lime-glow: #cbf233;
+  --lime-dark: #6ec228;
+
+  /* ---------- Color: Text ---------- */
+  --text-primary: #eef0e8;
+  --text-secondary: #e0e0e0;
+  --text-white: #ffffff;
+  --text-muted: #9aa393;
+  --text-muted-light: #9ba89e;
+  --text-dark: #10140f;
+
+  /* ---------- Color: Border / Line ---------- */
+  --line: rgba(238, 240, 232, 0.14);
+  --line-subtle: rgba(255, 255, 255, 0.08);
+  --line-lime: rgba(139, 247, 54, 0.12);
+  --line-lime-strong: rgba(209, 234, 75, 0.4);
+
+  /* ---------- Font: Display / Heading ---------- */
+  --font-display: 'Cinzel', serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-brand: 'Space Grotesk', sans-serif;
+
+  /* ---------- Font: Body ---------- */
+  --font-body: 'Montserrat', sans-serif;
+  --font-body-alt: 'Plus Jakarta Sans', sans-serif;
+  --font-body-base: 'Inter', sans-serif;
+
+  /* ---------- Font: Script / Handwriting ---------- */
+  --font-script: 'Alex Brush', cursive;
+  --font-handwriting: 'Caveat', cursive;
+
+  /* ---------- Spacing ---------- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ---------- Border Radius ---------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-2xl: 30px;
+  --radius-full: 50%;
+
+  /* ---------- Shadow ---------- */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  --shadow-lime: 0 0 25px rgba(139, 247, 54, 0.15);
+
+  /* ---------- Transitions ---------- */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---------- Layout ---------- */
+  --container-max: 1400px;
+  --container-wide: 1600px;
+  --header-height: 80px;
+
+  /* ---------- Z-index ---------- */
+  --z-base: 1;
+  --z-dropdown: 50;
+  --z-sticky: 90;
+  --z-overlay: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+}

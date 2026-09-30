@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Taman Villa</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+        :root {
+            --font-sans: 'Montserrat', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-cinzel: 'Cinzel', serif;
+            --text-white: #ffffff;
+            --bg-dark-green: #08140c; /* Warna hijau gelap untuk footer */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: var(--font-sans);
+            padding: 20px;
+        }
+
+        /* Container utama dengan rasio 16:9 seperti slide presentasi */
+        .slide-container {
+            width: 1400px;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #fff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: fadeInSlide 1.2s ease-out;
+        }
+
+        /* --- BAGIAN ATAS (HERO IMAGE & TEXT) --- */
+        .hero-section {
+            flex: 1.5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Animasi zoom out lambat saat halaman dimuat */
+            animation: slowZoomOut 10s ease-out forwards;
+        }
+
+        /* Overlay gelap halus agar teks lebih terbaca */
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.4) 100%);
+            z-index: 1;
+        }
+
+        /* Teks Kiri Atas */
+        .text-top-left {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            z-index: 2;
+            color: var(--text-white);
+        }
+        .text-top-left .softscape {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.5s forwards;
+        }
+        .text-top-left .title {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.7s forwards;
+        }
+        .text-top-left .location {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: #ccc;
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.9s forwards;
+        }
+        .text-top-left .quote {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.5;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 1.1s forwards;
+        }
+
+        /* Teks Kanan Atas */
+        .text-top-right {
+            position: absolute;
+            top: 40px;
+            right: 50px;
+            z-index: 2;
+            text-align: right;
+            color: var(--text-white);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slideDown 0.8s ease-out 0.6s forwards;
+        }
+
+        /* Teks Kanan Bawah (Bali) */
+        .text-bottom-right {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            z-index: 2;
+            text-align: right;
+            color: var(--text-white);
+            opacity: 0;
+            animation: slideLeft 0.8s ease-out 1s forwards;
+        }
+        .text-bottom-right .bali {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 4rem;
+            line-height: 1;
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+        .text-bottom-right .subtitle {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: #ddd;
+        }
+
+        /* --- BAGIAN TENGAH (GRID 4 GAMBAR) --- */
+        .image-grid {
+            display: flex;
+            height: 25%;
+            width: 100%;
+            background-color: #fff; /* Menjadi garis pemisah putih */
+        }
+        .grid-item {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-right: 2px solid #fff;
+            border-left: 2px solid #fff;
+        }
+        .grid-item:first-child { border-left: none; }
+        .grid-item:last-child { border-right: none; }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        /* Efek Hover pada Grid Gambar */
+        .grid-item:hover img {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Animasi masuk berurutan untuk grid */
+        .grid-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .grid-item:nth-child(1) { animation: slideUpFade 0.6s ease-out 1.2s forwards; }
+        .grid-item:nth-child(2) { animation: slideUpFade 0.6s ease-out 1.4s forwards; }
+        .grid-item:nth-child(3) { animation: slideUpFade 0.6s ease-out 1.6s forwards; }
+        .grid-item:nth-child(4) { animation: slideUpFade 0.6s ease-out 1.8s forwards; }
+
+        /* --- BAGIAN BAWAH (FOOTER) --- */
+        .footer {
+            height: 15%;
+            background-color: var(--bg-dark-green);
+            /* Gradient radial untuk meniru tekstur gelap daun */
+            background-image: radial-gradient(circle at 50% 50%, rgba(17, 36, 21, 0.9) 0%, rgba(5, 12, 7, 1) 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            color: var(--text-white);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-left p {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            line-height: 1.8;
+            color: #aaa;
+            opacity: 0;
+            animation: slideRight 0.8s ease-out 1.5s forwards;
+        }
+
+        .footer-center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 1.7s forwards;
+        }
+        .footer-center .present {
+            font-size: 0.5rem;
+            letter-spacing: 4px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        .footer-center h2 {
+            font-family: var(--font-cinzel);
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+        }
+        .footer-center .landscape {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+        .footer-center .services {
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: #888;
+        }
+
+        .footer-right p {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            line-height: 1.8;
+            text-align: right;
+            color: #aaa;
+            opacity: 0;
+            animation: slideLeft 0.8s ease-out 1.5s forwards;
+        }
+
+        /* --- KEYFRAMES ANIMASI --- */
+        @keyframes fadeInSlide {
+            0% { opacity: 0; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slowZoomOut {
+            0% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideRight {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideLeft {
+            0% { opacity: 0; transform: translateX(30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    
+    <!-- Hero Section (Gambar Utama & Teks) -->
+    <div class="hero-section">
+        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Taman Villa Bali" class="hero-bg">
+        <div class="hero-overlay"></div>
+
+        <div class="text-top-left">
+            <p class="softscape">SOFTSCAPE</p>
+            <h1 class="title">TAMAN VILLA</h1>
+            <p class="location">AT CIPUTRA RESORT BALI</p>
+            <p class="quote">Lush Greenery<br>for a Better<br>Living Experience</p>
+        </div>
+
+        <div class="text-top-right">
+            <p>NATURE<br>PEOPLE<br>BETTER SPACES</p>
+        </div>
+
+        <div class="text-bottom-right">
+            <h2 class="bali">Bali</h2>
+            <p class="subtitle">WHERE NATURE<br>MEETS LUXURY</p>
+        </div>
+    </div>
+
+    <!-- Image Grid Tengah -->
+    <div class="image-grid">
+        <div class="grid-item">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detail Taman 1">
+        </div>
+        <div class="grid-item">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detail Taman 2">
+        </div>
+        <div class="grid-item">
+            <img src="https://images.unsplash.com/photo-1584043940172-e1a5f4bb5eb8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detail Taman 3">
+        </div>
+        <div class="grid-item">
+            <img src="https://images.unsplash.com/photo-1558904541-efa843a96f09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detail Taman 4">
+        </div>
+    </div>
+
+    <!-- Footer Bawah -->
+    <div class="footer">
+        <div class="footer-left">
+            <p>TROPICAL<br>MODERN<br>SUSTAINABLE<br>TIMELESS</p>
+        </div>
+        
+        <div class="footer-center">
+            <p class="present">PRESENT BY</p>
+            <h2>Ananami</h2>
+            <p class="landscape">LANDSCAPE</p>
+            <p class="services">LANDSCAPE DESIGN | CONSTRUCTION | MAINTENANCE</p>
+        </div>
+
+        <div class="footer-right">
+            <p>GARDENS<br>FOR A BRIGHTER<br>TOMORROW</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

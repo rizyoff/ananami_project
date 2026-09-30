@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANANAMI LANDSCAPE - Get In Touch</title>
+    
+    <!-- Google Fonts: Cinzel, Montserrat, Alex Brush -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --bg-dark: #050906;
+            --card-dark: #09110a;
+            --lime-bright: #d1ea4b;
+            --lime-glow: rgba(209, 234, 75, 0.4);
+            --lime-hover: #e2f768;
+            --text-white: #ffffff;
+            --text-muted: #a0aaa2;
+            --border-lime: rgba(209, 234, 75, 0.25);
+            --border-subtle: rgba(255, 255, 255, 0.12);
+            --font-cinzel: 'Cinzel', serif;
+            --font-montserrat: 'Montserrat', sans-serif;
+            --font-script: 'Alex Brush', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #020403;
+            color: var(--text-white);
+            font-family: var(--font-montserrat);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* 16:9 Presentation Canvas Container */
+        .presentation-slide {
+            width: 100%;
+            max-width: 1600px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 40%, rgba(209, 234, 75, 0.05) 0%, transparent 60%),
+                radial-gradient(circle at 15% 85%, rgba(209, 234, 75, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 85% 15%, rgba(209, 234, 75, 0.03) 0%, transparent 50%);
+            border: 1px solid rgba(209, 234, 75, 0.2);
+            box-shadow: 0 35px 100px rgba(0, 0, 0, 0.95), 0 0 60px rgba(209, 234, 75, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Background Leaves Framing - Top Left and Top Right */
+        .top-left-leaf {
+            position: absolute;
+            top: -5%;
+            left: -3%;
+            width: 32%;
+            height: 55%;
+            background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: top left;
+            opacity: 0.38;
+            mix-blend-mode: lighten;
+            filter: contrast(1.3) brightness(0.85);
+            mask-image: radial-gradient(circle at top left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 85%);
+            -webkit-mask-image: radial-gradient(circle at top left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 85%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .top-right-leaf {
+            position: absolute;
+            top: -10%;
+            right: -2%;
+            width: 35%;
+            height: 60%;
+            background-image: url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: top right;
+            opacity: 0.35;
+            mix-blend-mode: lighten;
+            filter: contrast(1.4) brightness(0.8);
+            mask-image: radial-gradient(circle at top right, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: radial-gradient(circle at top right, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Bottom Monstera Wet Leaves Overlay Frame */
+        .bottom-leaves-frame {
+            position: absolute;
+            bottom: -8%;
+            left: -5%;
+            width: 110%;
+            height: 38%;
+            background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center bottom;
+            opacity: 0.45;
+            mix-blend-mode: lighten;
+            filter: contrast(1.4) brightness(0.75);
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Main Slide Grid Layout */
+        .slide-layout {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 100%;
+            padding: 42px 55px 32px 55px;
+            gap: 20px;
+        }
+
+        /* Top & Center 3-Column Content Layout */
+        .main-columns-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr 1.25fr;
+            gap: 40px;
+            align-items: stretch;
+            height: 100%;
+        }
+
+        /* LEFT COLUMN: Brand Header & Contact Items */
+        .left-column-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand-header-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand-title {
+            font-family: var(--font-montserrat);
+            font-size: 1.35rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: var(--text-white);
+            text-transform: uppercase;
+        }
+
+        .brand-title span {
+            color: var(--lime-bright);
+            font-weight: 500;
+        }
+
+        .brand-header-line {
+            width: 100%;
+            max-width: 280px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(209, 234, 75, 0.6) 0%, rgba(255, 255, 255, 0.15) 100%);
+            margin: 4px 0 6px 0;
+        }
+
+        .brand-subtitle {
+            font-size: 0.52rem;
+            letter-spacing: 3.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        /* Contact List Styling */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            padding: 4px 0;
+            transition: transform 0.25s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
+        }
+
+        .icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--lime-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(209, 234, 75, 0.15);
+            background: rgba(13, 22, 14, 0.6);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .icon-circle {
+            background: var(--lime-bright);
+            box-shadow: 0 0 20px var(--lime-bright);
+        }
+
+        .icon-circle svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--lime-bright);
+            fill: none;
+            transition: stroke 0.3s ease;
+        }
+
+        .contact-item:hover .icon-circle svg {
+            stroke: #050906;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-item:hover .contact-details {
+            border-bottom-color: rgba(209, 234, 75, 0.5);
+        }
+
+        .contact-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--lime-bright);
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .contact-value {
+            font-size: 0.65rem;
+            color: var(--text-white);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            line-height: 1.35;
+        }
+
+        /* Pill Connect Button */
+        .btn-connect {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--lime-bright);
+            color: #050906;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            max-width: 290px;
+            box-shadow: 0 0 25px rgba(209, 234, 75, 0.3);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-connect:hover {
+            background-color: #ffffff;
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-arrow-icon {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            line-height: 1;
+        }
+
+        .btn-connect:hover .btn-arrow-icon {
+            transform: translateX(6px);
+        }
+
+        /* MIDDLE COLUMN: Architectural Photo Frame & Cursive Overlay */
+        .middle-column-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: 100%;
+        }
+
+        .featured-image-frame {
+            width: 100%;
+            height: 100%;
+            max-height: 480px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(209, 234, 75, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(209, 234, 75, 0.1);
+        }
+
+        .featured-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.92) contrast(1.1);
+            transition: transform 0.7s ease, filter 0.7s ease;
+        }
+
+        .featured-image-frame:hover img {
+            transform: scale(1.05);
+            filter: brightness(1) contrast(1.15);
+        }
+
+        /* Cursive Script Glow Overlay */
+        .cursive-overlay-box {
+            position: absolute;
+            bottom: 24px;
+            left: 20px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .cursive-text-calligraphy {
+            font-family: var(--font-script);
+            font-size: 2.7rem;
+            line-height: 0.95;
+            color: var(--lime-bright);
+            text-shadow: 0 0 15px rgba(209, 234, 75, 0.6), 0 0 30px rgba(209, 234, 75, 0.3);
+            display: block;
+            transform: rotate(-3deg);
+        }
+
+        .cursive-underline-swirl {
+            width: 120px;
+            height: 8px;
+            background: radial-gradient(ellipse at center, var(--lime-bright) 0%, transparent 80%);
+            margin-top: -4px;
+            opacity: 0.8;
+            filter: blur(1px);
+        }
+
+        /* RIGHT COLUMN: Get In Touch & Philosophy */
+        .right-column-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-left: 10px;
+        }
+
+        .right-top-tag {
+            font-size: 0.52rem;
+            font-weight: 600;
+            letter-spacing: 3.5px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .right-top-tag::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(209, 234, 75, 0.5) 0%, transparent 100%);
+            max-width: 120px;
+        }
+
+        .hero-title-box {
+            margin-top: 10px;
+            margin-bottom: 12px;
+        }
+
+        .hero-title-getin {
+            font-family: var(--font-cinzel);
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--text-white);
+            line-height: 0.95;
+            letter-spacing: 3px;
+        }
+
+        .hero-title-touch {
+            font-family: var(--font-cinzel);
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--lime-bright);
+            line-height: 0.95;
+            letter-spacing: 3px;
+            text-shadow: 0 0 25px var(--lime-glow);
+        }
+
+        .description-paragraph {
+            font-size: 0.56rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            font-weight: 400;
+            text-align: justify;
+            margin-bottom: 20px;
+            max-width: 480px;
+        }
+
+        /* 3 Philosophy Pillars Bar */
+        .philosophy-pillars-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 16px;
+            gap: 10px;
+        }
+
+        .pillar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .pillar-icon-box {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--lime-bright);
+            filter: drop-shadow(0 0 6px var(--lime-glow));
+        }
+
+        .pillar-icon-box svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--lime-bright);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .pillar-title {
+            font-size: 0.44rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+
+        .pillar-divider {
+            width: 1px;
+            height: 38px;
+            background-color: var(--border-subtle);
+        }
+
+        /* BOTTOM FOOTER SECTION */
+        .bottom-footer-bar {
+            position: relative;
+            z-index: 15;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 12px;
+        }
+
+        .footer-left-stack {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-vert-line {
+            width: 2px;
+            height: 32px;
+            background-color: var(--lime-bright);
+            box-shadow: 0 0 8px var(--lime-bright);
+        }
+
+        .footer-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .footer-text-item {
+            font-size: 0.44rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .footer-right-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-right-line {
+            width: 30px;
+            height: 1px;
+            background-color: var(--lime-bright);
+        }
+
+        .footer-right-text {
+            font-size: 0.48rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            color: var(--text-white);
+            text-transform: uppercase;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-fade {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* INTERACTIVE MODAL POPUP */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 3, 0.88);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #09120a;
+            border: 1px solid var(--lime-bright);
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 520px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(209, 234, 75, 0.2);
+            position: relative;
+            transform: scale(0.92);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-backdrop.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 12px;
+        }
+
+        .modal-title {
+            font-family: var(--font-cinzel);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--lime-bright);
+            letter-spacing: 1.5px;
+        }
+
+        .modal-close-icon {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close-icon:hover {
+            color: var(--lime-bright);
+        }
+
+        .modal-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-option-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            padding: 12px 18px;
+            border-radius: 6px;
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .modal-option-btn:hover {
+            border-color: var(--lime-bright);
+            background: rgba(209, 234, 75, 0.1);
+            color: var(--lime-bright);
+            transform: translateX(4px);
+        }
+
+        /* Toast notification */
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--lime-bright);
+            color: #050906;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 200;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .toast-msg.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 16:9 Presentation Main Canvas Frame -->
+    <div class="presentation-slide">
+        
+        <!-- Ambient Background Leaf Overlay Textures -->
+        <div class="top-left-leaf"></div>
+        <div class="top-right-leaf"></div>
+        <div class="bottom-leaves-frame"></div>
+
+        <!-- Slide Layout Grid -->
+        <div class="slide-layout">
+
+            <!-- Top & Middle 3 Columns Section -->
+            <div class="main-columns-grid">
+
+                <!-- COLUMN 1: LEFT CONTACT INFO -->
+                <div class="left-column-box anim-fade" style="animation-delay: 0.1s;">
+                    
+                    <!-- Header Title -->
+                    <div class="brand-header-box">
+                        <div class="brand-title">ANANAMI <span>LANDSCAPE</span></div>
+                        <div class="brand-header-line"></div>
+                        <div class="brand-subtitle">DESIGN &nbsp;|&nbsp; BUILD &nbsp;|&nbsp; MAINTAIN</div>
+                    </div>
+
+                    <!-- Contact Items List -->
+                    <div class="contact-list">
+                        
+                        <!-- Phone -->
+                        <div class="contact-item" onclick="copyOrAction('Phone', '0813-3887-3332', 'tel:081338873332')">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Phone</span>
+                                <span class="contact-value">0813-3887-3332</span>
+                            </div>
+                        </div>
+
+                        <!-- Instagram -->
+                        <div class="contact-item" onclick="copyOrAction('Instagram', '@ananamilandscape', 'https://instagram.com/ananamilandscape')">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Instagram</span>
+                                <span class="contact-value">@ananamilandscape</span>
+                            </div>
+                        </div>
+
+                        <!-- E-mail -->
+                        <div class="contact-item" onclick="copyOrAction('Email', 'ananamilandscape@gmail.com', 'mailto:ananamilandscape@gmail.com')">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">E-mail</span>
+                                <span class="contact-value">ananamilandscape@gmail.com</span>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="contact-item" onclick="copyOrAction('Address', 'Jl. Candi Penataran Timur III, Semarang-Indonesia', 'https://maps.google.com/?q=Semarang')">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Address</span>
+                                <span class="contact-value">Jl. Candi Penataran Timur III,<br>Semarang-Indonesia</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Let's Connect Pill Button -->
+                    <button class="btn-connect" onclick="openContactModal()">
+                        <span>LET'S CONNECT</span>
+                        <span class="btn-arrow-icon">→</span>
+                    </button>
+
+                </div>
+
+                <!-- COLUMN 2: CENTER ARCHITECTURAL VISUAL -->
+                <div class="middle-column-box anim-fade" style="animation-delay: 0.25s;">
+                    <div class="featured-image-frame">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="Ananami Modern Landscape Design">
+                        
+                        <!-- Handwritten Script Overlay -->
+                        <div class="cursive-overlay-box">
+                            <span class="cursive-text-calligraphy">
+                                Greener<br>
+                                Spaces<br>
+                                Better Lives
+                            </span>
+                            <div class="cursive-underline-swirl"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMN 3: RIGHT GET IN TOUCH & PHILOSOPHY -->
+                <div class="right-column-box anim-fade" style="animation-delay: 0.38s;">
+                    
+                    <div>
+                        <!-- Top Tag -->
+                        <div class="right-top-tag">DISCUSS &nbsp;|&nbsp; PLAN &nbsp;|&nbsp; CREATE</div>
+
+                        <!-- Main Hero Title -->
+                        <div class="hero-title-box">
+                            <div class="hero-title-getin">GET IN</div>
+                            <div class="hero-title-touch">TOUCH</div>
+                        </div>
+
+                        <!-- Paragraph Description -->
+                        <p class="description-paragraph">
+                            Every great landscape begins with a conversation. Whether you wish to transform your home garden, build a sustainable urban park, or create a lush commercial space, our team is ready to assist you with expert concept, design, and execution. Contact us today for an initial consultation, and let's start designing a greener future together.
+                        </p>
+                    </div>
+
+                    <!-- 3 Philosophy Columns -->
+                    <div class="philosophy-pillars-grid">
+                        
+                        <!-- Pillar 1 -->
+                        <div class="pillar-item">
+                            <div class="pillar-icon-box">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="M12 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+                                </svg>
+                            </div>
+                            <div class="pillar-title">PEOPLE<br>FOCUSED</div>
+                        </div>
+
+                        <div class="pillar-divider"></div>
+
+                        <!-- Pillar 2 -->
+                        <div class="pillar-item">
+                            <div class="pillar-icon-box">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 4.75-3.5 8-8 8z"></path>
+                                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                                </svg>
+                            </div>
+                            <div class="pillar-title">GREENER<br>SPACES</div>
+                        </div>
+
+                        <div class="pillar-divider"></div>
+
+                        <!-- Pillar 3 -->
+                        <div class="pillar-item">
+                            <div class="pillar-icon-box">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M18.178 8c5.096 0 5.096 8 0 8-2.3 0-3.933-1.383-6.178-4-2.245 2.617-3.878 4-6.178 4-5.096 0-5.096-8 0-8 2.3 0 3.933 1.383 6.178 4 2.245-2.617 3.878-4 6.178-4z"></path>
+                                </svg>
+                            </div>
+                            <div class="pillar-title">SUSTAINABLE<br>SOLUTIONS</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BOTTOM FOOTER SECTION -->
+            <div class="bottom-footer-bar anim-fade" style="animation-delay: 0.5s;">
+                
+                <!-- Left Stack Text -->
+                <div class="footer-left-stack">
+                    <div class="footer-vert-line"></div>
+                    <div class="footer-text-group">
+                        <div class="footer-text-item">NATURE</div>
+                        <div class="footer-text-item">PEOPLE</div>
+                        <div class="footer-text-item">PLACES</div>
+                        <div class="footer-text-item">A BRIGHTER TOMORROW</div>
+                    </div>
+                </div>
+
+                <!-- Right Brand Identifier -->
+                <div class="footer-right-brand">
+                    <div class="footer-right-line"></div>
+                    <div class="footer-right-text">ANANAMI LANDSCAPE</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Interactive Contact Lightbox Modal -->
+    <div class="modal-backdrop" id="contactModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">LET'S CONNECT</div>
+                <button class="modal-close-icon" onclick="closeContactModal()">&times;</button>
+            </div>
+
+            <p class="text-xs text-[#a0aaa2] mb-5 leading-relaxed">
+                Start your landscape transformation journey with Ananami Landscape. Choose your preferred channel to reach out immediately:
+            </p>
+
+            <div class="modal-options-list">
+                <a href="https://wa.me/6281338873332?text=Hello%20Ananami%20Landscape,%20I%20would%20like%20to%20consult%20about%20a%20landscape%20project." target="_blank" class="modal-option-btn">
+                    <span>💬 WhatsApp Quick Chat</span>
+                    <span>→</span>
+                </a>
+
+                <a href="mailto:ananamilandscape@gmail.com?subject=Landscape%20Inquiry%20-%20Ananami" class="modal-option-btn">
+                    <span>✉️ Send Direct Email</span>
+                    <span>→</span>
+                </a>
+
+                <a href="https://instagram.com/ananamilandscape" target="_blank" class="modal-option-btn">
+                    <span>📸 Visit Instagram Portfolio</span>
+                    <span>→</span>
+                </a>
+
+                <button onclick="copyToClipboard('0813-3887-3332', 'Phone number copied to clipboard!')" class="modal-option-btn">
+                    <span>📋 Copy Phone Number</span>
+                    <span>Copy</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div class="toast-msg" id="toast">
+        Action details copied to clipboard!
+    </div>
+
+    <script>
+        // Open & Close Modal Logic
+        function openContactModal() {
+            document.getElementById('contactModal').classList.add('active');
+        }
+
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+
+        // Close Modal when clicking outside the card
+        document.getElementById('contactModal').addEventListener('click', (e) => {
+            if (e.target.id === 'contactModal') {
+                closeContactModal();
+            }
+        });
+
+        // Copy item action logic
+        function copyOrAction(type, value, link) {
+            copyToClipboard(value, `${type} (${value}) copied to clipboard!`);
+            
+            // Optionally open link after small delay if user clicks
+            setTimeout(() => {
+                if (link && !link.startsWith('#')) {
+                    window.open(link, '_blank');
+                }
+            }, 800);
+        }
+
+        function copyToClipboard(text, customMessage) {
+            // Using document.execCommand for iframe compatibility
+            const el = document.createElement('textarea');
+            el.value = text;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast(customMessage || 'Copied to clipboard!');
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+            document.body.removeChild(el);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

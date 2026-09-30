@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Landscape Build</title>
+    
+    <!-- Google Fonts for High-End Architecture Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --bg-dark: #060b07;
+            --card-dark: #0c150e;
+            --lime-bright: #d1ea4b;
+            --lime-glow: rgba(209, 234, 75, 0.4);
+            --text-white: #ffffff;
+            --text-muted: #9aa89e;
+            --border-dark: rgba(255, 255, 255, 0.08);
+            --font-cinzel: 'Cinzel', serif;
+            --font-montserrat: 'Montserrat', sans-serif;
+            --font-script: 'Alex Brush', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #020503;
+            color: var(--text-white);
+            font-family: var(--font-montserrat);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 12px;
+        }
+
+        /* 16:9 Presentation Slide Canvas Container */
+        .presentation-slide {
+            width: 100%;
+            max-width: 1600px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(209, 234, 75, 0.035) 0%, transparent 45%),
+                radial-gradient(circle at 90% 85%, rgba(209, 234, 75, 0.04) 0%, transparent 50%);
+            border: 1px solid rgba(209, 234, 75, 0.18);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(209, 234, 75, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Topographic Contour & Leaf Overlays */
+        .contour-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='800' height='800' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100,200 C100,100 300,400 500,200 C700,0 800,300 900,200 M-100,350 C150,250 250,550 550,350 C750,150 850,450 950,350 M-100,500 C200,400 200,700 600,500 C800,300 900,600 1000,500' stroke='%23d1ea4b' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-size: cover;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tropical-leaf-top {
+            position: absolute;
+            top: -40px;
+            right: 220px;
+            width: 420px;
+            height: 320px;
+            background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.18;
+            mix-blend-mode: screen;
+            filter: contrast(1.4) brightness(0.8);
+            mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+            -webkit-mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .tropical-leaf-bottom {
+            position: absolute;
+            bottom: -50px;
+            right: 280px;
+            width: 520px;
+            height: 480px;
+            background-image: url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.22;
+            mix-blend-mode: screen;
+            filter: brightness(0.65) contrast(1.5);
+            mask-image: radial-gradient(circle at 50% 60%, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(circle at 50% 60%, black 20%, transparent 70%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Slide Main Layout Grid */
+        .slide-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 16px 24px;
+            padding: 22px 32px 10px 32px;
+            flex: 1;
+            z-index: 5;
+            height: calc(100% - 36px);
+        }
+
+        /* Header Bar Top Right Tagline */
+        .top-right-tagline {
+            position: absolute;
+            top: 22px;
+            right: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.52rem;
+            letter-spacing: 2.5px;
+            color: var(--text-white);
+            font-weight: 700;
+            z-index: 10;
+        }
+
+        .top-right-tagline .line {
+            width: 24px;
+            height: 2px;
+            background-color: var(--lime-bright);
+        }
+
+        /* TOP LEFT HEADER BLOCK */
+        .top-left-block {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .header-content-left {
+            flex: 1;
+        }
+
+        .brand-tag {
+            font-size: 0.52rem;
+            letter-spacing: 3px;
+            color: var(--text-white);
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .brand-tag span {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .main-title {
+            font-family: var(--font-cinzel);
+            font-size: 2.7rem;
+            line-height: 0.92;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--text-white);
+            margin-bottom: 8px;
+        }
+
+        .main-title .lime-text {
+            color: var(--lime-bright);
+            display: block;
+            text-shadow: 0 0 20px var(--lime-glow);
+        }
+
+        .main-desc {
+            font-size: 0.52rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+            max-width: 98%;
+            font-weight: 400;
+        }
+
+        /* Feature Badge Circle Icons */
+        .header-divider-line {
+            width: 1px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.15);
+            margin-top: 4px;
+        }
+
+        .features-column {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 2px;
+            min-width: 135px;
+        }
+
+        .feature-item-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-icon-circle {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1.2px solid var(--lime-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--lime-bright);
+            flex-shrink: 0;
+            background: rgba(209, 234, 75, 0.05);
+            box-shadow: 0 0 8px rgba(209, 234, 75, 0.2);
+        }
+
+        .feature-icon-circle svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .feature-text {
+            font-size: 0.48rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        /* Section Title Bars */
+        .section-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+        }
+
+        .section-title-text {
+            font-family: var(--font-cinzel);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title-text::after {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--lime-bright);
+            opacity: 0.8;
+        }
+
+        .section-sub-tags {
+            font-size: 0.48rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Bottom Left Section: Planting a Dry Garden */
+        .dry-garden-block {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dry-garden-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .grid-row-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .grid-row-2 {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 8px;
+        }
+
+        /* Photo Cards Common Styling */
+        .photo-card {
+            position: relative;
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .photo-card:hover {
+            border-color: var(--lime-bright);
+            box-shadow: 0 0 18px rgba(209, 234, 75, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.88) contrast(1.08);
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(1) contrast(1.1);
+        }
+
+        /* Translucent Label Overlay */
+        .card-label-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(3, 8, 4, 0.95) 0%, rgba(3, 8, 4, 0.7) 70%, transparent 100%);
+            padding: 6px 8px 5px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-title-text {
+            font-size: 0.52rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .card-sub-text {
+            font-size: 0.44rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Specific Aspect Ratios for Dry Garden */
+        .grid-row-3 .photo-card {
+            aspect-ratio: 4 / 3;
+        }
+
+        .grid-row-2 .photo-card {
+            aspect-ratio: 16 / 9;
+        }
+
+        .sub-footer-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.52rem;
+            letter-spacing: 2.5px;
+            color: var(--text-white);
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .sub-footer-text .line {
+            flex: 1;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* TOP RIGHT SECTION: Modern Tropical Garden Planting */
+        .top-right-block {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tropical-garden-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 0.9fr;
+            grid-template-rows: repeat(2, 62px);
+            gap: 8px;
+        }
+
+        /* Card spanning 2 rows on the left */
+        .tropical-card-left {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            height: 100%;
+        }
+
+        /* Top & Bottom middle cards */
+        .tropical-card-mid-top {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .tropical-card-mid-bottom {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+        }
+
+        /* Card spanning 2 rows on the right */
+        .tropical-card-right {
+            grid-column: 3 / 4;
+            grid-row: 1 / 3;
+            height: 100%;
+        }
+
+        /* BOTTOM RIGHT SECTION: Vertical Garden & Cursive Overlay */
+        .bottom-right-block {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .vertical-garden-content-wrap {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 12px;
+            align-items: center;
+            flex: 1;
+        }
+
+        /* Floating Calligraphy Script Quote */
+        .cursive-quote-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 10;
+            padding-left: 4px;
+        }
+
+        .cursive-quote {
+            font-family: var(--font-script);
+            font-size: 2.2rem;
+            line-height: 0.95;
+            color: var(--lime-bright);
+            text-shadow: 0 0 16px rgba(209, 234, 75, 0.45);
+            transform: rotate(-3deg);
+            display: block;
+        }
+
+        /* Vertical Garden 2 Cards Grid */
+        .vertical-garden-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            height: 100%;
+        }
+
+        .vertical-garden-grid .photo-card {
+            height: 100%;
+            min-height: 155px;
+        }
+
+        /* FOOTER BRAND MARK */
+        .footer-bar {
+            height: 32px;
+            background: rgba(3, 7, 4, 0.95);
+            border-top: 1px solid rgba(209, 234, 75, 0.2);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            z-index: 20;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            color: var(--text-white);
+            font-weight: 800;
+            font-family: var(--font-cinzel);
+        }
+
+        .footer-line {
+            width: 32px;
+            height: 2px;
+            background-color: var(--lime-bright);
+            box-shadow: 0 0 8px var(--lime-bright);
+        }
+
+        /* Entrance Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-element {
+            animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Modal Lightbox Popup */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 5, 3, 0.93);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #09120b;
+            border: 1px solid var(--lime-bright);
+            border-radius: 4px;
+            padding: 22px;
+            max-width: 680px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.95), 0 0 35px rgba(209, 234, 75, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-box img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header-title {
+            font-family: var(--font-cinzel);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--lime-bright);
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 10px rgba(209, 234, 75, 0.3);
+        }
+
+        .modal-sub-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1px;
+            margin-top: -8px;
+            text-transform: uppercase;
+        }
+
+        .modal-desc {
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .modal-close-btn {
+            align-self: flex-end;
+            background: var(--lime-bright);
+            color: #030804;
+            border: none;
+            padding: 6px 20px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 16:9 Presentation Main Frame Container -->
+    <div class="presentation-slide">
+        
+        <!-- Background Ambient Overlays -->
+        <div class="contour-overlay"></div>
+        <div class="tropical-leaf-top"></div>
+        <div class="tropical-leaf-bottom"></div>
+
+        <!-- Top Right Slide Level Tagline -->
+        <div class="top-right-tagline">
+            <span>BUILD GREENER LIVING</span>
+            <div class="line"></div>
+        </div>
+
+        <!-- Main Slide Body Layout -->
+        <div class="slide-body">
+
+            <!-- 1. TOP LEFT HEADER & BRANDING BLOCK -->
+            <div class="top-left-block anim-element" style="animation-delay: 0.1s;">
+                
+                <div class="header-content-left">
+                    <div class="brand-tag">
+                        ANANAMI <span>LANDSCAPE</span>
+                    </div>
+                    <div class="main-title">
+                        LANDSCAPE<br>
+                        <span class="lime-text">BUILD</span>
+                    </div>
+                    <p class="main-desc">
+                        From initial earthworks to the final touches of hardscaping and softscaping, we deliver precise landscape construction solutions. This portfolio reflects our commitment to robust structures and captivating aesthetics. We invite you to explore our finest work.
+                    </p>
+                </div>
+
+                <div class="header-divider-line"></div>
+
+                <!-- 4 Circular Feature Icons Column -->
+                <div class="features-column">
+                    
+                    <div class="feature-item-row">
+                        <div class="feature-icon-circle">
+                            <!-- Leaf Icon SVG -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 4.75-3.5 8-8 8z"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-text">QUALITY<br>WORKMANSHIP</div>
+                    </div>
+
+                    <div class="feature-item-row">
+                        <div class="feature-icon-circle">
+                            <!-- Hardhat Icon SVG -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 18h20v-2a8 8 0 0 0-16 0v2z"></path>
+                                <path d="M12 2v6"></path>
+                                <path d="M12 10a4 4 0 0 1-4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-text">EXPERIENCED<br>TEAM</div>
+                    </div>
+
+                    <div class="feature-item-row">
+                        <div class="feature-icon-circle">
+                            <!-- Sprout Icon SVG -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 20h10"></path>
+                                <path d="M12 20v-8"></path>
+                                <path d="M12 12a5 5 0 0 1 5-5c0 4-3 5-5 5z"></path>
+                                <path d="M12 12a5 5 0 0 0-5-5c0 4 3 5 5 5z"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-text">SUSTAINABLE<br>LANDSCAPE</div>
+                    </div>
+
+                    <div class="feature-item-row">
+                        <div class="feature-icon-circle">
+                            <!-- Target / Compass Icon SVG -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="8"></circle>
+                                <line x1="12" y1="2" x2="12" y2="6"></line>
+                                <line x1="12" y1="18" x2="12" y2="22"></line>
+                            </svg>
+                        </div>
+                        <div class="feature-text">DETAIL<br>ORIENTED</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 2. TOP RIGHT SECTION: Modern Tropical Garden Planting -->
+            <div class="top-right-block anim-element" style="animation-delay: 0.25s;">
+                
+                <div class="section-bar">
+                    <div class="section-title-text">Modern Tropical Garden Planting</div>
+                    <div class="section-sub-tags">LIFESTYLE • NATURE • HARMONY</div>
+                </div>
+
+                <div class="tropical-garden-grid">
+                    
+                    <!-- GARDEN PLANTING (Tall Left) -->
+                    <div class="photo-card tropical-card-left" data-title="GARDEN PLANTING" data-subtitle="Tropical plants arrangement" data-img="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" data-desc="A multi-layered tropical garden composition blending tall palms, broad-leaf Monstera, and accent groundcover for a natural resort ambience.">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80" alt="Garden Planting">
+                        <div class="card-label-overlay">
+                            <div class="card-title-text">GARDEN PLANTING</div>
+                            <div class="card-sub-text">Tropical plants arrangement</div>
+                        </div>
+                    </div>
+
+                    <!-- FOLIAGE DETAILS (Top Mid) -->
+                    <div class="photo-card tropical-card-mid-top" data-title="FOLIAGE DETAILS" data-subtitle="Healthy & lush plants" data-img="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80" data-desc="Close-up selection of vibrant Alocasia and Philodendron leaves grown under precision climate and organic soil conditioning.">
+                        <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=400&q=80" alt="Foliage Details">
+                        <div class="card-label-overlay">
+                            <div class="card-title-text">FOLIAGE DETAILS</div>
+                            <div class="card-sub-text">Healthy & lush plants</div>
+                        </div>
+                    </div>
+
+                    <!-- NIGHT VIEW (Bottom Mid) -->
+                    <div class="photo-card tropical-card-mid-bottom" data-title="NIGHT VIEW" data-subtitle="Bringing beauty at night" data-img="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" data-desc="Custom warm LED landscape uplighting highlights tree textures and sculptural foliage during evening hours.">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80" alt="Night View">
+                        <div class="card-label-overlay">
+                            <div class="card-title-text">NIGHT VIEW</div>
+                            <div class="card-sub-text">Bringing beauty at night</div>
+                        </div>
+                    </div>
+
+                    <!-- ORNAMENTAL GRASS (Tall Right) -->
+                    <div class="photo-card tropical-card-right" data-title="ORNAMENTAL GRASS" data-subtitle="Modern landscape accents" data-img="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80" data-desc="Linear illuminated planting strips featuring fountain grass and architectural ground covers for modern indoor/outdoor transitions.">
+                        <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=400&q=80" alt="Ornamental Grass">
+                        <div class="card-label-overlay">
+                            <div class="card-title-text">ORNAMENTAL GRASS</div>
+                            <div class="card-sub-text">Modern landscape accents</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 3. BOTTOM LEFT SECTION: Planting a Dry Garden -->
+            <div class="dry-garden-block anim-element" style="animation-delay: 0.35s;">
+                
+                <div class="section-bar">
+                    <div class="section-title-text">Planting a Dry Garden</div>
+                    <div class="section-sub-tags">SIMPLE • TEXTURE • TIMELESS</div>
+                </div>
+
+                <div class="dry-garden-grid">
+                    
+                    <!-- Top 3 Grid Row -->
+                    <div class="grid-row-3">
+                        
+                        <!-- SCULPTURE PLANTING -->
+                        <div class="photo-card" data-title="SCULPTURE PLANTING" data-subtitle="Living art in landscape" data-img="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=80" data-desc="Sculpted bonsai tree paired with colorful Bromeliad ground accents and gravel bed mulching for a zen dry garden layout.">
+                            <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=400&q=80" alt="Sculpture Planting">
+                            <div class="card-label-overlay">
+                                <div class="card-title-text">SCULPTURE PLANTING</div>
+                                <div class="card-sub-text">Living art in landscape</div>
+                            </div>
+                        </div>
+
+                        <!-- TROPICAL ACCENT -->
+                        <div class="photo-card" data-title="TROPICAL ACCENT" data-subtitle="Bold foliage composition" data-img="https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=800&q=80" data-desc="Cycas revolving centerpieces set against fiery red and yellow Bromeliad clusters for a high-contrast tropical highlight.">
+                            <img src="https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=400&q=80" alt="Tropical Accent">
+                            <div class="card-label-overlay">
+                                <div class="card-title-text">TROPICAL ACCENT</div>
+                                <div class="card-sub-text">Bold foliage composition</div>
+                            </div>
+                        </div>
+
+                        <!-- TREE PLANTING -->
+                        <div class="photo-card" data-title="TREE PLANTING" data-subtitle="Greener environment" data-img="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80" data-desc="Strategic integration of specimen trees providing natural canopy shading and seasonal floral interest.">
+                            <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=400&q=80" alt="Tree Planting">
+                            <div class="card-label-overlay">
+                                <div class="card-title-text">TREE PLANTING</div>
+                                <div class="card-sub-text">Greener environment</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bottom 2 Grid Row -->
+                    <div class="grid-row-2">
+                        
+                        <!-- PLANTING PROCESS -->
+                        <div class="photo-card" data-title="PLANTING PROCESS" data-subtitle="From soil to vibrant garden" data-img="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a81?auto=format&fit=crop&w=800&q=80" data-desc="Hands-on execution by experienced landscape artisans conditioning soil substrates and precise root positioning.">
+                            <img src="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a81?auto=format&fit=crop&w=500&q=80" alt="Planting Process">
+                            <div class="card-label-overlay">
+                                <div class="card-title-text">PLANTING PROCESS</div>
+                                <div class="card-sub-text">From soil to vibrant garden</div>
+                            </div>
+                        </div>
+
+                        <!-- STRUCTURE & PLANTING -->
+                        <div class="photo-card" data-title="STRUCTURE & PLANTING" data-subtitle="Strong foundation, lasting beauty" data-img="https://images.unsplash.com/photo-1584467541268-b040f83be3fd?auto=format&fit=crop&w=800&q=80" data-desc="Integration of reinforced planter boxes with mature specimen trees and automatic drip irrigation frameworks.">
+                            <img src="https://images.unsplash.com/photo-1584467541268-b040f83be3fd?auto=format&fit=crop&w=500&q=80" alt="Structure & Planting">
+                            <div class="card-label-overlay">
+                                <div class="card-title-text">STRUCTURE & PLANTING</div>
+                                <div class="card-sub-text">Strong foundation, lasting beauty</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="sub-footer-text">
+                    <span>NATURE IN EVERY DETAIL</span>
+                    <div class="line"></div>
+                </div>
+
+            </div>
+
+            <!-- 4. BOTTOM RIGHT SECTION: VERTICAL GARDEN -->
+            <div class="bottom-right-block anim-element" style="animation-delay: 0.5s;">
+                
+                <div class="section-bar">
+                    <div class="section-title-text">VERTICAL GARDEN</div>
+                    <div class="section-sub-tags">GREEN WALL • MODERN • INSPIRING</div>
+                </div>
+
+                <div class="vertical-garden-content-wrap">
+                    
+                    <!-- Floating Cursive Script Text -->
+                    <div class="cursive-quote-container">
+                        <span class="cursive-quote">Shaping<br>Greener<br>Spaces</span>
+                    </div>
+
+                    <!-- 2 Photo Cards Grid -->
+                    <div class="vertical-garden-grid">
+                        
+                        <!-- VERTICAL GARDEN -->
+                        <div class="photo-card" data-title="VERTICAL GARDEN" data-subtitle="Green living in every space" data-img="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80" data-desc="Architectural living green wall along interior stairwells bringing air purification and lush botanical luxury indoors.">
+                            <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=500&q=80" alt="Vertical Garden">
+                            <div class="card-label-overlay">
+                                <div class="card-title-text">VERTICAL GARDEN</div>
+                                <div class="card-sub-text">Green living in every space</div>
+                            </div>
+                        </div>
+
+                        <!-- INSTALLATION PROCESS -->
+                        <div class="photo-card" data-title="INSTALLATION PROCESS" data-subtitle="Precision & care" data-img="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80" data-desc="Precision mounting of felt module pockets, drip line micro-emitters, and structural frame waterproofing.">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=500&q=80" alt="Installation Process">
+                            <div class="card-label-overlay">
+                                <div class="card-title-text">INSTALLATION PROCESS</div>
+                                <div class="card-sub-text">Precision & care</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER BRANDING BAR -->
+        <div class="footer-bar">
+            <div class="footer-brand">
+                <span>ANANAMI LANDSCAPE</span>
+                <div class="footer-line"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Lightbox Inspection Modal -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-box">
+            <div class="modal-header-title" id="mTitle">GARDEN PLANTING</div>
+            <div class="modal-sub-title" id="mSubtitle">TROPICAL PLANTS ARRANGEMENT</div>
+            <img src="" alt="Detail View" id="mImg">
+            <p class="modal-desc" id="mDesc">Description text goes here.</p>
+            <button class="modal-close-btn" id="mClose">CLOSE PREVIEW</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.photo-card');
+            const modal = document.getElementById('detailModal');
+            const mTitle = document.getElementById('mTitle');
+            const mSubtitle = document.getElementById('mSubtitle');
+            const mImg = document.getElementById('mImg');
+            const mDesc = document.getElementById('mDesc');
+            const mClose = document.getElementById('mClose');
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const title = card.getAttribute('data-title');
+                    const subtitle = card.getAttribute('data-subtitle');
+                    const img = card.getAttribute('data-img');
+                    const desc = card.getAttribute('data-desc');
+
+                    if(title && img) {
+                        mTitle.textContent = title;
+                        mSubtitle.textContent = subtitle;
+                        mImg.src = img;
+                        mDesc.textContent = desc;
+
+                        modal.classList.add('active');
+                    }
+                });
+            });
+
+            mClose.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

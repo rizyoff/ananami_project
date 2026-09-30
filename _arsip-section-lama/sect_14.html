@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Our Best Team</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #070d08;
+            --card-bg: #0c160e;
+            --text-white: #ffffff;
+            --text-gray: #a2aba4;
+            --lime-accent: #d1ea4b; /* Warna lime khas Ananami */
+            --border-lime: rgba(209, 234, 75, 0.4);
+            --font-serif: 'Cinzel', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-script: 'Alex Brush', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: var(--text-white);
+            font-family: var(--font-sans);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container Slide Utama 16:9 */
+        .slide-container {
+            width: 1400px;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 40%, rgba(16, 32, 20, 0.8) 0%, rgba(5, 10, 6, 1) 100%),
+                url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1600&q=80'); /* Nuansa daun tropis gelap */
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 35px 45px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Overlay Gradasi Daun Tropis Gelap di Pinggir */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, rgba(7, 13, 8, 0.85) 0%, rgba(7, 13, 8, 0.3) 30%, rgba(7, 13, 8, 0.3) 70%, rgba(7, 13, 8, 0.85) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* ================= HEADER ATAS ================= */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        /* Logo Kiri */
+        .logo-section {
+            opacity: 0;
+            animation: slideDown 0.8s ease-out 0.2s forwards;
+        }
+        .logo-section svg {
+            width: 24px;
+            fill: var(--lime-accent);
+            margin-bottom: 3px;
+        }
+        .logo-section h1 {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        .logo-section .logo-sub {
+            font-size: 0.5rem;
+            letter-spacing: 5px;
+            color: var(--text-gray);
+            margin-top: 2px;
+        }
+        .logo-section .tagline-stack {
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: var(--text-gray);
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        /* Teks Kanan + Kaligrafi */
+        .header-right {
+            text-align: right;
+            opacity: 0;
+            animation: slideDown 0.8s ease-out 0.4s forwards;
+        }
+        .header-right .top-tag {
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+        .header-right .divider-line {
+            width: 30px;
+            height: 1px;
+            background-color: var(--lime-accent);
+            margin: 12px 0 8px auto;
+        }
+        .header-right .script-text {
+            font-family: var(--font-script);
+            font-size: 2.8rem;
+            color: var(--lime-accent);
+            line-height: 1.0;
+            text-shadow: 0 0 12px rgba(209, 234, 75, 0.25);
+        }
+
+        /* ================= ANGGOTA TIM (TETAP 2 KARTU UTAMA) ================= */
+        .team-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 10px 0;
+        }
+
+        .team-card {
+            width: 420px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-lime);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--lime-accent);
+            box-shadow: 0 10px 25px rgba(209, 234, 75, 0.15);
+        }
+
+        .team-card:nth-child(1) { animation: slideUp 0.8s ease-out 0.5s forwards; }
+        .team-card:nth-child(2) { animation: slideUp 0.8s ease-out 0.7s forwards; }
+
+        /* Card Header Inside */
+        .card-header {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .member-info h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--lime-accent);
+            letter-spacing: 1px;
+        }
+        .member-info p {
+            font-size: 0.48rem;
+            letter-spacing: 1.5px;
+            color: var(--text-white);
+            margin-top: 2px;
+        }
+        .card-tags {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-tags .v-line {
+            width: 1px;
+            height: 22px;
+            background-color: rgba(255,255,255,0.2);
+        }
+        .card-tags .tag-list {
+            font-size: 0.42rem;
+            letter-spacing: 1.5px;
+            color: var(--text-gray);
+            line-height: 1.4;
+            text-align: right;
+        }
+
+        /* Foto Anggota Tim */
+        .photo-wrapper {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            background-color: #111;
+        }
+        .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            filter: contrast(1.05) brightness(0.95);
+            transition: transform 0.6s ease;
+        }
+        .team-card:hover .photo-wrapper img {
+            transform: scale(1.04);
+        }
+
+        /* Watermark Logo Baju (Simulasi) */
+        .photo-overlay-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.85;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4px 8px;
+            border-radius: 3px;
+            backdrop-filter: blur(2px);
+        }
+        .photo-overlay-logo svg {
+            width: 12px;
+            fill: var(--lime-accent);
+        }
+        .photo-overlay-logo span {
+            font-family: var(--font-serif);
+            font-size: 0.6rem;
+            color: var(--text-white);
+        }
+
+        /* Card Footer (Ikon Fitur) */
+        .card-footer-icons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 10px 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .icon-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 6px;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+        .icon-box:last-child {
+            border-right: none;
+        }
+        .icon-box svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: var(--lime-accent);
+            stroke-width: 1.4;
+            flex-shrink: 0;
+        }
+        .icon-box span {
+            font-size: 0.42rem;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            line-height: 1.2;
+            font-weight: 500;
+        }
+
+        /* ================= BAGIAN BAWAH (JUDUL & DESKRIPSI) ================= */
+        .bottom-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-top: 10px;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.9s forwards;
+        }
+
+        .title-group {
+            flex-shrink: 0;
+        }
+        .title-group h2 {
+            font-family: var(--font-serif);
+            font-size: 2.3rem;
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: 2px;
+            color: var(--text-white);
+        }
+        .title-group h2 span {
+            display: block;
+            color: var(--lime-accent);
+            font-weight: 700;
+        }
+        .title-group .sub-footer {
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+
+        .title-divider {
+            width: 1px;
+            height: 75px;
+            background-color: rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        .desc-paragraph {
+            font-size: 0.58rem;
+            line-height: 1.75;
+            color: var(--text-gray);
+            letter-spacing: 0.3px;
+            text-align: justify;
+        }
+
+        /* ================= ANIMASI KEYFRAMES ================= */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div class="content-layer">
+
+        <!-- 1. HEADER ATAS -->
+        <div class="top-header">
+            <div class="logo-section">
+                <svg viewBox="0 0 24 24"><path d="M12,2C8,2,4,5,4,9c0,3.5,2.5,6.5,6,8.5c0.5,2.5,1,4.5,2,4.5c1,0,1.5-2,2-4.5c3.5-2,6-5,6-8.5 C20,5,16,2,12,2z M12,15c-2.5-1.5-4-3.5-4-6c0-2.5,2-4,4-4s4,1.5,4,4C16,11.5,14.5,13.5,12,15z"/></svg>
+                <h1>Ananami</h1>
+                <div class="logo-sub">LANDSCAPE</div>
+                
+                <div class="tagline-stack">
+                    NATURE<br>
+                    PEOPLE<br>
+                    BETTER SPACES
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="top-tag">
+                    GARDENS<br>
+                    FOR A<br>
+                    BRIGHTER<br>
+                    TOMORROW
+                </div>
+                <div class="divider-line"></div>
+                <div class="script-text">
+                    Greener<br>Spaces<br>Brighter<br>Lives
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. KARTU ANGGOTA TIM (TETAP 2 ORANG UTAMA) -->
+        <div class="team-cards-container">
+            
+            <!-- Kartu 1: Rino A. Prana -->
+            <div class="team-card">
+                <div class="card-header">
+                    <div class="member-info">
+                        <h3>RINO A.PRANA</h3>
+                        <p>LANDSCAPE PROJECT MANAGER</p>
+                    </div>
+                    <div class="card-tags">
+                        <div class="v-line"></div>
+                        <div class="tag-list">
+                            PLAN<br>
+                            COORDINATE<br>
+                            DELIVER
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-wrapper">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="Rino A. Prana">
+                    <div class="photo-overlay-logo">
+                        <svg viewBox="0 0 24 24"><path d="M12,2C8,2,4,5,4,9c0,3.5,2.5,6.5,6,8.5c0.5,2.5,1,4.5,2,4.5c1,0,1.5-2,2-4.5c3.5-2,6-5,6-8.5 C20,5,16,2,12,2z"/></svg>
+                        <span>Ananami</span>
+                    </div>
+                </div>
+
+                <div class="card-footer-icons">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C7.5 2 4 6 4 10.5c0 3 1.5 5.5 4 7.5v4h8v-4c2.5-2 4-4.5 4-7.5C20 6 16.5 2 12 2z M12 18v3 M12 2v16"/></svg>
+                        <span>FIELD<br>EXECUTION</span>
+                    </div>
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        <span>PROJECT<br>MANAGEMENT</span>
+                    </div>
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span>TEAM<br>COORDINATION</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kartu 2: Ayu Pramudya -->
+            <div class="team-card">
+                <div class="card-header">
+                    <div class="member-info">
+                        <h3>AYU PRAMUDYA</h3>
+                        <p>LANDSCAPE CREATIVE DIRECTOR</p>
+                    </div>
+                    <div class="card-tags">
+                        <div class="v-line"></div>
+                        <div class="tag-list">
+                            DESIGN<br>
+                            CREATE<br>
+                            INSPIRE
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Ayu Pramudya">
+                    <div class="photo-overlay-logo">
+                        <svg viewBox="0 0 24 24"><path d="M12,2C8,2,4,5,4,9c0,3.5,2.5,6.5,6,8.5c0.5,2.5,1,4.5,2,4.5c1,0,1.5-2,2-4.5c3.5-2,6-5,6-8.5 C20,5,16,2,12,2z"/></svg>
+                        <span>Ananami</span>
+                    </div>
+                </div>
+
+                <div class="card-footer-icons">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.58 7.58"/><circle cx="11" cy="11" r="2"/></svg>
+                        <span>DESIGN<br>DEVELOPMENT</span>
+                    </div>
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.9 14"/></svg>
+                        <span>CREATIVE<br>IDEAS</span>
+                    </div>
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M12 22c4.97 0 9-4.03 9-9-4.97 0-9 4.03-9 9zM12 22c-4.97 0-9-4.03-9-9 4.97 0 9 4.03 9 9zM12 4c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg>
+                        <span>PLANT & SPACE<br>PLANNING</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3. BAGIAN BAWAH -->
+        <div class="bottom-section">
+            <div class="title-group">
+                <h2>OUR<br><span>BEST TEAM</span></h2>
+                <div class="sub-footer">PEOPLE &nbsp;|&nbsp; IDEAS &nbsp;|&nbsp; GREENER TOMORROW</div>
+            </div>
+
+            <div class="title-divider"></div>
+
+            <div class="desc-paragraph">
+                Our team comprises licensed landscape architects, creative designers, horticultural specialists, and an experienced construction crew, all fully committed to turning your vision into reality. Combining technical expertise, a deep understanding of nature, and high aesthetic standards, we work synergistically from the initial concept through to long-term maintenance. We believe that strong collaboration is the key to creating landscapes that are not only visually stunning but also sustainable and functional.
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

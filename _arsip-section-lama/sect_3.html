@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Project Types</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#070c08',
+                            card: 'rgba(18, 28, 20, 0.75)',
+                            cardBorder: 'rgba(139, 247, 54, 0.15)',
+                            lime: '#8bf736',
+                            limedark: '#6ec228',
+                            muted: '#9ba89e'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050806;
+            color: #e2e8f0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Ambient dark foliage overlay background */
+        .foliage-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(18, 35, 23, 0.4) 0%, rgba(5, 8, 6, 0.98) 85%),
+                              url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Decorative Monstera leaf overlays */
+        .monstera-leaf-bottom {
+            background: url('https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=80&w=1000&auto=format&fit=crop');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.18;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        /* Interactive expanding columns for vertical showcase */
+        .gallery-col {
+            transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s ease, filter 0.3s ease;
+            flex: 1;
+        }
+
+        .gallery-col.active, .gallery-col:hover {
+            flex: 2.2;
+        }
+
+        /* Glow effects */
+        .glow-lime {
+            text-shadow: 0 0 25px rgba(139, 247, 54, 0.3);
+        }
+
+        .card-active {
+            border-color: rgba(139, 247, 54, 0.8) !important;
+            background: linear-gradient(135deg, rgba(28, 48, 33, 0.85) 0%, rgba(14, 26, 17, 0.95) 100%) !important;
+            box-shadow: 0 0 20px rgba(139, 247, 54, 0.15);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050806;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #192b1d;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8bf736;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between foliage-bg selection:bg-brand-lime selection:text-black relative">
+
+    <!-- Decorative Monstera leaf accent in foreground -->
+    <div class="absolute -bottom-20 right-0 w-[500px] h-[500px] monstera-leaf-bottom z-0"></div>
+
+    <!-- MAIN WRAPPER CONTAINER -->
+    <div class="w-full max-w-[1600px] mx-auto min-h-screen flex flex-col justify-between p-4 sm:p-6 lg:p-8 relative z-10">
+
+        <!-- HEADER SECTION -->
+        <header class="flex justify-between items-start w-full border-b border-emerald-900/30 pb-4 mb-4 md:mb-6">
+            <!-- Brand Title -->
+            <div>
+                <h1 class="font-cinzel text-xl sm:text-2xl lg:text-3xl font-bold tracking-wider text-white">
+                    ANANAMI <span class="text-brand-lime">LANDSCAPE</span>
+                </h1>
+                <p class="text-[10px] sm:text-xs tracking-[0.35em] font-medium text-brand-muted uppercase mt-1">
+                    DESIGN <span class="text-brand-lime">|</span> BUILD <span class="text-brand-lime">|</span> MAINTAIN
+                </p>
+            </div>
+
+            <!-- Top Right Slogan Badge -->
+            <div class="text-right">
+                <div class="text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] text-gray-300 uppercase leading-tight space-y-0.5">
+                    <div>NATURE</div>
+                    <div>PEOPLE</div>
+                    <div>PLACES A</div>
+                    <div>BRIGHTER</div>
+                    <div class="text-brand-lime font-bold">TOMORROW</div>
+                </div>
+                <div class="w-10 h-[2px] bg-brand-lime ml-auto mt-1.5"></div>
+            </div>
+        </header>
+
+        <!-- MAIN BODY: 2 COLUMNS (LEFT CONTENT, RIGHT GALLERY COLUMNS) -->
+        <main class="grid grid-cols-1 lg:grid-cols-12 gap-8 my-auto items-stretch">
+
+            <!-- LEFT COLUMN: TITLE & CATEGORY LIST (5 COLUMNS) -->
+            <section class="lg:col-span-5 flex flex-col justify-center space-y-6">
+                
+                <!-- Slide Heading -->
+                <div class="space-y-1">
+                    <h2 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-none">
+                        PROJECT
+                    </h2>
+                    <div class="relative inline-block">
+                        <h2 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-brand-lime leading-none glow-lime">
+                            TYPES
+                        </h2>
+                        <div class="w-full h-[3px] bg-brand-lime mt-2 rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Intro Subtitle -->
+                <p class="text-sm sm:text-base text-gray-300 font-light leading-relaxed">
+                    We cater to a wide range of landscaping needs, including:
+                </p>
+
+                <!-- PROJECT TYPE LIST (Interactive Cards) -->
+                <div class="space-y-3.5 pt-1">
+
+                    <!-- ITEM 1: RESIDENTIAL -->
+                    <div id="card-residential" 
+                         onclick="selectProject('residential')" 
+                         class="p-3.5 rounded-2xl bg-brand-card/90 border border-brand-cardBorder backdrop-blur-md transition-all duration-300 cursor-pointer flex items-center space-x-4 hover:border-brand-lime/60 group">
+                        
+                        <!-- Icon Circle -->
+                        <div class="w-12 h-12 rounded-full bg-emerald-950/90 border border-brand-lime/40 flex items-center justify-center text-brand-lime shrink-0 group-hover:bg-brand-lime group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="fa-solid fa-house-chimney text-lg"></i>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-sm sm:text-base font-bold tracking-wider text-brand-lime uppercase">
+                                    RESIDENTIAL
+                                </h3>
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-lime/0 group-hover:text-brand-lime transition-all"></i>
+                            </div>
+                            <p class="text-xs text-gray-300 font-light mt-0.5 leading-snug">
+                                Private homes, private gardens, courtyards, rooftop gardens, and backyards.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 2: VILLA & HOSPITALITY -->
+                    <div id="card-hospitality" 
+                         onclick="selectProject('hospitality')" 
+                         class="p-3.5 rounded-2xl bg-brand-card/90 border border-brand-cardBorder backdrop-blur-md transition-all duration-300 cursor-pointer flex items-center space-x-4 hover:border-brand-lime/60 group">
+                        
+                        <!-- Icon Circle -->
+                        <div class="w-12 h-12 rounded-full bg-emerald-950/90 border border-brand-lime/40 flex items-center justify-center text-brand-lime shrink-0 group-hover:bg-brand-lime group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="fa-solid fa-umbrella-beach text-lg"></i>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-sm sm:text-base font-bold tracking-wider text-brand-lime uppercase">
+                                    VILLA & HOSPITALITY
+                                </h3>
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-lime/0 group-hover:text-brand-lime transition-all"></i>
+                            </div>
+                            <p class="text-xs text-gray-300 font-light mt-0.5 leading-snug">
+                                Villas, resorts, hotels, guesthouses, and hospitality areas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 3: COMMERCIAL -->
+                    <div id="card-commercial" 
+                         onclick="selectProject('commercial')" 
+                         class="p-3.5 rounded-2xl bg-brand-card/90 border border-brand-cardBorder backdrop-blur-md transition-all duration-300 cursor-pointer flex items-center space-x-4 hover:border-brand-lime/60 group">
+                        
+                        <!-- Icon Circle -->
+                        <div class="w-12 h-12 rounded-full bg-emerald-950/90 border border-brand-lime/40 flex items-center justify-center text-brand-lime shrink-0 group-hover:bg-brand-lime group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="fa-solid fa-city text-lg"></i>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-sm sm:text-base font-bold tracking-wider text-brand-lime uppercase">
+                                    COMMERCIAL
+                                </h3>
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-lime/0 group-hover:text-brand-lime transition-all"></i>
+                            </div>
+                            <p class="text-xs text-gray-300 font-light mt-0.5 leading-snug">
+                                Restaurants, cafés, retail spaces, showrooms, offices, and commercial areas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 4: PUBLIC & ESTATE -->
+                    <div id="card-public" 
+                         onclick="selectProject('public')" 
+                         class="p-3.5 rounded-2xl bg-brand-card/90 border border-brand-cardBorder backdrop-blur-md transition-all duration-300 cursor-pointer flex items-center space-x-4 hover:border-brand-lime/60 group">
+                        
+                        <!-- Icon Circle -->
+                        <div class="w-12 h-12 rounded-full bg-emerald-950/90 border border-brand-lime/40 flex items-center justify-center text-brand-lime shrink-0 group-hover:bg-brand-lime group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="fa-solid fa-tree-city text-lg"></i>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-sm sm:text-base font-bold tracking-wider text-brand-lime uppercase">
+                                    PUBLIC & ESTATE
+                                </h3>
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-lime/0 group-hover:text-brand-lime transition-all"></i>
+                            </div>
+                            <p class="text-xs text-gray-300 font-light mt-0.5 leading-snug">
+                                Residential complex parks, public facility areas, estate entrances, and communal green spaces.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Tagline -->
+                <div class="pt-2 flex items-center space-x-3">
+                    <div class="w-8 h-[2px] bg-brand-lime"></div>
+                    <p class="text-[10px] sm:text-xs font-bold tracking-[0.25em] text-brand-muted uppercase">
+                        CREATING GREENER SPACES FOR A BRIGHTER TOMORROW
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- RIGHT COLUMN: INTERACTIVE 4-PANEL VERTICAL GALLERY SHOWCASE (7 COLUMNS) -->
+            <section class="lg:col-span-7 flex flex-col justify-center mt-6 lg:mt-0">
+                
+                <!-- Vertical Gallery Grid (Flexible expandable columns) -->
+                <div class="flex flex-col sm:flex-row gap-3 h-[450px] sm:h-[550px] w-full rounded-3xl overflow-hidden p-1 bg-black/40 border border-emerald-900/40 shadow-2xl backdrop-blur-sm">
+
+                    <!-- COLUMN 1: RESIDENTIAL -->
+                    <div id="col-residential" 
+                         onmouseenter="selectProject('residential')" 
+                         onclick="selectProject('residential')"
+                         class="gallery-col active relative rounded-2xl overflow-hidden cursor-pointer group border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Residential Landscaping" 
+                             class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                        
+                        <!-- Gradients -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
+                        <div class="absolute inset-0 bg-emerald-950/20 group-hover:opacity-0 transition-opacity"></div>
+
+                        <!-- Label at bottom -->
+                        <div class="absolute bottom-6 left-5 right-5 z-10 space-y-1">
+                            <h4 class="font-serif text-sm sm:text-base font-bold tracking-wider text-white uppercase group-hover:text-brand-lime transition-colors">
+                                RESIDENTIAL
+                            </h4>
+                            <div class="w-8 h-[2px] bg-brand-lime"></div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 2: VILLA & HOSPITALITY -->
+                    <div id="col-hospitality" 
+                         onmouseenter="selectProject('hospitality')" 
+                         onclick="selectProject('hospitality')"
+                         class="gallery-col relative rounded-2xl overflow-hidden cursor-pointer group border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Villa & Hospitality Landscaping" 
+                             class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                        
+                        <!-- Gradients -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
+                        <div class="absolute inset-0 bg-emerald-950/20 group-hover:opacity-0 transition-opacity"></div>
+
+                        <!-- Label at bottom -->
+                        <div class="absolute bottom-6 left-5 right-5 z-10 space-y-1">
+                            <h4 class="font-serif text-sm sm:text-base font-bold tracking-wider text-white uppercase group-hover:text-brand-lime transition-colors">
+                                VILLA & HOSPITALITY
+                            </h4>
+                            <div class="w-8 h-[2px] bg-brand-lime"></div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 3: COMMERCIAL -->
+                    <div id="col-commercial" 
+                         onmouseenter="selectProject('commercial')" 
+                         onclick="selectProject('commercial')"
+                         class="gallery-col relative rounded-2xl overflow-hidden cursor-pointer group border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Commercial Landscaping" 
+                             class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                        
+                        <!-- Gradients -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
+                        <div class="absolute inset-0 bg-emerald-950/20 group-hover:opacity-0 transition-opacity"></div>
+
+                        <!-- Label at bottom -->
+                        <div class="absolute bottom-6 left-5 right-5 z-10 space-y-1">
+                            <h4 class="font-serif text-sm sm:text-base font-bold tracking-wider text-white uppercase group-hover:text-brand-lime transition-colors">
+                                COMMERCIAL
+                            </h4>
+                            <div class="w-8 h-[2px] bg-brand-lime"></div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 4: PUBLIC & ESTATE -->
+                    <div id="col-public" 
+                         onmouseenter="selectProject('public')" 
+                         onclick="selectProject('public')"
+                         class="gallery-col relative rounded-2xl overflow-hidden cursor-pointer group border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Public & Estate Landscaping" 
+                             class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                        
+                        <!-- Gradients -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
+                        <div class="absolute inset-0 bg-emerald-950/20 group-hover:opacity-0 transition-opacity"></div>
+
+                        <!-- Label at bottom -->
+                        <div class="absolute bottom-6 left-5 right-5 z-10 space-y-1">
+                            <h4 class="font-serif text-sm sm:text-base font-bold tracking-wider text-white uppercase group-hover:text-brand-lime transition-colors">
+                                PUBLIC & ESTATE
+                            </h4>
+                            <div class="w-8 h-[2px] bg-brand-lime"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- FOOTER / NAV SUB-BAR -->
+        <footer class="mt-6 pt-4 border-t border-emerald-900/30 flex flex-col sm:flex-row justify-between items-center text-xs text-brand-muted space-y-2 sm:space-y-0">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-leaf text-brand-lime"></i>
+                <span class="font-medium text-white">Ananami Landscape</span>
+                <span>&bull; Official Company Profile</span>
+            </div>
+            <div class="text-right text-[11px]">
+                Page 03 / <span class="text-brand-lime font-bold">Project Scope</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC FOR INTERACTIVITY -->
+    <script>
+        const projectKeys = ['residential', 'hospitality', 'commercial', 'public'];
+
+        function selectProject(key) {
+            projectKeys.forEach(p => {
+                const card = document.getElementById(`card-${p}`);
+                const col = document.getElementById(`col-${p}`);
+
+                if (p === key) {
+                    card.classList.add('card-active');
+                    col.classList.add('active');
+                } else {
+                    card.classList.remove('card-active');
+                    col.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize default selection
+        window.onload = function() {
+            selectProject('residential');
+        };
+    </script>
+</body>
+</html>

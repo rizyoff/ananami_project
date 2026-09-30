@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Our Best Service</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#050906',
+                            card: 'rgba(12, 22, 15, 0.82)',
+                            cardBorder: 'rgba(139, 247, 54, 0.18)',
+                            lime: '#8bf736',
+                            limedark: '#6ec228',
+                            muted: '#a3b3a7'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        handwriting: ['Caveat', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #040705;
+            color: #e2e8f0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Ambient dark foliage overlay background */
+        .foliage-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(10, 25, 14, 0.5) 0%, rgba(4, 7, 5, 0.98) 85%),
+                              url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Decorative monstera foliage overlays on margins */
+        .foliage-overlay-left {
+            background: url('https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            opacity: 0.18;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .foliage-overlay-right {
+            background: url('https://images.unsplash.com/photo-1534710961216-75c88202f43e?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            opacity: 0.22;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        /* Custom asymmetrical organic image frame shapes */
+        .organic-frame-1 {
+            border-radius: 60px 0px 60px 0px;
+        }
+        .organic-frame-2 {
+            border-radius: 50px 0px 50px 0px;
+        }
+        .organic-frame-3 {
+            border-radius: 0px 50px 0px 50px;
+        }
+
+        /* Glow effects */
+        .glow-lime {
+            text-shadow: 0 0 25px rgba(139, 247, 54, 0.4);
+        }
+
+        .glow-box {
+            box-shadow: 0 0 25px rgba(139, 247, 54, 0.12);
+        }
+
+        /* Custom list scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(139, 247, 54, 0.3);
+            border-radius: 2px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #8bf736;
+        }
+
+        /* Hover card transitions */
+        .service-card {
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(139, 247, 54, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(139, 247, 54, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between foliage-bg selection:bg-brand-lime selection:text-black relative p-3 sm:p-6 lg:p-8">
+
+    <div class="fixed top-0 left-0 w-80 h-full foliage-overlay-left z-0"></div>
+    <div class="fixed bottom-0 right-0 w-96 h-full foliage-overlay-right z-0"></div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="w-full max-w-[1650px] mx-auto flex flex-col justify-between min-h-[92vh] relative z-10">
+
+        <!-- HEADER SECTION -->
+        <header class="flex flex-wrap justify-between items-start border-b border-emerald-900/40 pb-3 mb-4 gap-4">
+            <!-- Brand Title -->
+            <div>
+                <h1 class="font-cinzel text-lg sm:text-xl lg:text-2xl font-bold tracking-wider text-white">
+                    ANANAMI <span class="text-brand-lime">LANDSCAPE</span>
+                </h1>
+                <p class="text-[10px] sm:text-xs tracking-[0.35em] font-medium text-brand-muted uppercase mt-0.5">
+                    DESIGN <span class="text-brand-lime">|</span> BUILD <span class="text-brand-lime">|</span> MAINTAIN
+                </p>
+            </div>
+
+            <!-- Top Right Slogan Badge -->
+            <div class="text-right">
+                <p class="text-[10px] sm:text-xs font-semibold tracking-[0.25em] text-gray-300 uppercase leading-snug">
+                    FROM CONCEPT TO A<br>
+                    <span class="text-brand-lime font-bold">GREENER TOMORROW</span>
+                </p>
+            </div>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-auto items-stretch">
+
+            <!-- LEFT COLUMN: MAIN TITLE & SLOGAN (3 COLUMNS) -->
+            <section class="lg:col-span-3 flex flex-col justify-between space-y-6">
+                
+                <div class="space-y-3">
+                    <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-none">
+                        OUR BEST
+                    </h2>
+                    <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-brand-lime leading-none glow-lime">
+                        SERVICE
+                    </h2>
+                    
+                    <div class="pt-2">
+                        <div class="w-16 h-[3px] bg-brand-lime mb-3"></div>
+                        <p class="text-xs sm:text-sm tracking-[0.25em] font-medium text-brand-muted uppercase">
+                            GREENER SPACES<br>
+                            <span class="text-white font-semibold">BETTER LIVES</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bottom Left Vertical Slogan Block -->
+                <div class="hidden lg:block pt-8 border-t border-emerald-900/30">
+                    <div class="text-[11px] font-medium tracking-[0.3em] text-gray-400 space-y-1 uppercase leading-tight">
+                        <div>NATURE</div>
+                        <div>PEOPLE</div>
+                        <div>PLACES</div>
+                        <div>A BRIGHTER</div>
+                        <div class="text-brand-lime font-bold">TOMORROW</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT SECTION: 3 SERVICE BLOCKS (9 COLUMNS) -->
+            <section class="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-5">
+
+                <!-- SERVICE 01: LANDSCAPE DESIGN -->
+                <article class="service-card bg-brand-card/80 border border-brand-cardBorder backdrop-blur-md rounded-2xl p-4 flex flex-col justify-between space-y-4">
+                    
+                    <!-- Top Image Showcase -->
+                    <div class="relative w-full h-44 sm:h-48 overflow-hidden organic-frame-1 border border-brand-lime/30 shadow-lg group">
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=800&auto=format&fit=crop" 
+                             alt="Landscape Design" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                        <span class="absolute top-2 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] text-brand-lime border border-brand-lime/30 font-semibold">01 DESIGN</span>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="space-y-1">
+                        <div class="flex items-baseline space-x-2">
+                            <span class="font-serif text-3xl font-extrabold text-brand-lime glow-lime">01</span>
+                            <h3 class="text-base sm:text-lg font-bold tracking-wider text-white uppercase font-sans">
+                                LANDSCAPE <span class="text-brand-lime">DESIGN</span>
+                            </h3>
+                        </div>
+                        <p class="text-xs font-semibold tracking-wider text-brand-muted uppercase pt-1">
+                            Services Include:
+                        </p>
+                    </div>
+
+                    <!-- Bullet List -->
+                    <ul class="space-y-2 text-xs text-gray-300 font-light overflow-y-auto max-h-56 custom-scroll pr-1">
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Concept and design proposal</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Site planning</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Landscape layout</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>3D visualization & 3D rendering</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Plant selection</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Landscape material selection</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Garden style creativity</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Lighting concept</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Irrigation and drainage systems</span>
+                        </li>
+                    </ul>
+
+                </article>
+
+                <!-- SERVICE 02: LANDSCAPE CONSTRUCTION -->
+                <article class="service-card bg-brand-card/80 border border-brand-cardBorder backdrop-blur-md rounded-2xl p-4 flex flex-col justify-between space-y-4">
+                    
+                    <!-- Top Image Showcase -->
+                    <div class="relative w-full h-44 sm:h-48 overflow-hidden organic-frame-2 border border-brand-lime/30 shadow-lg group">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" 
+                             alt="Landscape Construction" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                        <span class="absolute top-2 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] text-brand-lime border border-brand-lime/30 font-semibold">02 BUILD</span>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="space-y-1">
+                        <div class="flex items-baseline space-x-2">
+                            <span class="font-serif text-3xl font-extrabold text-brand-lime glow-lime">02</span>
+                            <h3 class="text-base sm:text-lg font-bold tracking-wider text-white uppercase font-sans">
+                                LANDSCAPE <span class="text-brand-lime">CONSTRUCTION</span>
+                            </h3>
+                        </div>
+                        <p class="text-xs font-semibold tracking-wider text-brand-muted uppercase pt-1">
+                            The work includes:
+                        </p>
+                    </div>
+
+                    <!-- Bullet List -->
+                    <ul class="space-y-1.5 text-xs text-gray-300 font-light overflow-y-auto max-h-56 custom-scroll pr-1">
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Site preparation and soil preparation</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Softscaping</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Tree and plant installation</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Hardscape & landscape structure</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Paving and stepping stones</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Natural stone work</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Vertical garden</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Ponds and water features</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Pergolas and garden structures</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Irrigation systems</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Landscape lighting</span>
+                        </li>
+                    </ul>
+
+                </article>
+
+                <!-- SERVICE 03: LANDSCAPE MAINTENANCE -->
+                <article class="service-card bg-brand-card/80 border border-brand-cardBorder backdrop-blur-md rounded-2xl p-4 flex flex-col justify-between space-y-4 relative overflow-hidden">
+                    
+                    <!-- Top Image Showcase -->
+                    <div class="relative w-full h-44 sm:h-48 overflow-hidden organic-frame-3 border border-brand-lime/30 shadow-lg group">
+                        <img src="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a28?q=80&w=800&auto=format&fit=crop" 
+                             alt="Landscape Maintenance" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                        <span class="absolute top-2 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] text-brand-lime border border-brand-lime/30 font-semibold">03 MAINTAIN</span>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="space-y-1">
+                        <div class="flex items-baseline space-x-2">
+                            <span class="font-serif text-3xl font-extrabold text-brand-lime glow-lime">03</span>
+                            <h3 class="text-base sm:text-lg font-bold tracking-wider text-white uppercase font-sans">
+                                LANDSCAPE <span class="text-brand-lime">MAINTENANCE</span>
+                            </h3>
+                        </div>
+                        <p class="text-xs font-semibold tracking-wider text-brand-muted uppercase pt-1">
+                            The work includes:
+                        </p>
+                    </div>
+
+                    <!-- Bullet List -->
+                    <ul class="space-y-1.5 text-xs text-gray-300 font-light overflow-y-auto max-h-48 custom-scroll pr-1">
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Site preparation & soil health</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Softscaping management</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Tree & plant inspection & care</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Pruning and shaping</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Natural stone care</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Garden routine maintenance</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Ponds and water features check</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Pergolas & garden structures check</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Irrigation systems check</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="w-4 h-4 rounded-full border border-brand-lime/60 bg-emerald-950/80 flex items-center justify-center text-[9px] text-brand-lime shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></span>
+                            <span>Landscape lighting check</span>
+                        </li>
+                    </ul>
+
+                    <!-- Handwritten Script Badge in Corner -->
+                    <div class="pt-2 text-right">
+                        <p class="font-handwriting text-brand-lime text-xl sm:text-2xl -rotate-3 leading-tight opacity-90 inline-block drop-shadow-md">
+                            Sustainable Landscapes<br>
+                            <span class="text-white">for a Greener Tomorrow</span>
+                        </p>
+                    </div>
+
+                </article>
+
+            </section>
+
+        </main>
+
+        <!-- FOOTER SECTION -->
+        <footer class="mt-4 pt-3 border-t border-emerald-900/30 flex flex-col sm:flex-row justify-between items-center text-xs text-brand-muted space-y-2 sm:space-y-0">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-leaf text-brand-lime"></i>
+                <span class="font-semibold text-white">ANANAMI LANDSCAPE</span>
+                <span>&bull; Official Company Services</span>
+            </div>
+            <div class="text-right text-[11px] uppercase tracking-wider font-medium">
+                Page 04 / <span class="text-brand-lime font-bold">Our Best Service</span>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

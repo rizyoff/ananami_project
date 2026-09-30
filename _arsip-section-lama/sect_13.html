@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Landscape Maintenance</title>
+    
+    <!-- Google Fonts for High-End Landscape & Architectural Design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --bg-dark: #080d09;
+            --card-dark: #0d150e;
+            --lime-bright: #d1ea4b;
+            --lime-glow: rgba(209, 234, 75, 0.35);
+            --text-white: #ffffff;
+            --text-muted: #a0a8a2;
+            --border-dark: rgba(255, 255, 255, 0.08);
+            --font-cinzel: 'Cinzel', serif;
+            --font-montserrat: 'Montserrat', sans-serif;
+            --font-script: 'Alex Brush', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #030604;
+            color: var(--text-white);
+            font-family: var(--font-montserrat);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 16px;
+        }
+
+        /* 16:9 Presentation Canvas Frame */
+        .presentation-slide {
+            width: 100%;
+            max-width: 1600px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(209, 234, 75, 0.04) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(209, 234, 75, 0.03) 0%, transparent 50%);
+            border: 1px solid rgba(209, 234, 75, 0.2);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(209, 234, 75, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Background Glossy Leaf Texture Overlays */
+        .top-foliage-bg {
+            position: absolute;
+            top: -20px;
+            right: 180px;
+            width: 580px;
+            height: 240px;
+            background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.22;
+            mix-blend-mode: lighten;
+            filter: contrast(1.3) brightness(0.9);
+            mask-image: radial-gradient(circle at 60% 20%, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 60% 20%, black 20%, transparent 80%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bottom-left-foliage {
+            position: absolute;
+            bottom: -30px;
+            left: -20px;
+            width: 480px;
+            height: 280px;
+            background-image: url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: bottom left;
+            opacity: 0.38;
+            mix-blend-mode: lighten;
+            filter: contrast(1.4) brightness(0.75);
+            mask-image: radial-gradient(circle at 20% 80%, black 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(circle at 20% 80%, black 30%, transparent 75%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Slide Main Layout Grid */
+        .slide-content-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 28px;
+            padding: 28px 36px 16px 36px;
+            flex: 1;
+            z-index: 5;
+            height: calc(100% - 40px);
+        }
+
+        /* LEFT PANEL STYLING */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .brand-header-tag {
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            color: var(--text-white);
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .main-heading {
+            font-family: var(--font-cinzel);
+            font-size: 2.8rem;
+            line-height: 0.92;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-white);
+            margin-bottom: 6px;
+        }
+
+        .main-heading .lime-highlight {
+            color: var(--lime-bright);
+            display: block;
+            text-shadow: 0 0 25px var(--lime-glow);
+            font-family: var(--font-cinzel);
+            font-weight: 900;
+        }
+
+        .sub-heading {
+            font-size: 0.52rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .description-p {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 95%;
+            font-weight: 400;
+            margin-bottom: 18px;
+        }
+
+        /* 3 Columns x 2 Rows Service Icon Grid */
+        .services-icon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px 10px;
+            margin-bottom: 16px;
+        }
+
+        .icon-badge-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.25s ease;
+        }
+
+        .icon-badge-item:hover {
+            background: rgba(209, 234, 75, 0.08);
+            transform: translateX(2px);
+        }
+
+        .icon-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1.2px solid var(--lime-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--lime-bright);
+            flex-shrink: 0;
+            background: rgba(209, 234, 75, 0.06);
+            box-shadow: 0 0 10px rgba(209, 234, 75, 0.18);
+            transition: all 0.3s ease;
+        }
+
+        .icon-badge-item:hover .icon-circle {
+            background: var(--lime-bright);
+            color: var(--bg-dark);
+            box-shadow: 0 0 16px var(--lime-bright);
+        }
+
+        .icon-circle svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .icon-label-text {
+            font-size: 0.45rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            line-height: 1.25;
+        }
+
+        /* Left Divider Line & Sub-tag */
+        .divider-tag-wrapper {
+            margin-bottom: 12px;
+        }
+
+        .thin-line {
+            width: 80%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.15);
+            margin-bottom: 6px;
+        }
+
+        .care-tag-text {
+            font-size: 0.48rem;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Cursive Script Bottom-Left Highlight */
+        .script-quote-container {
+            margin-top: auto;
+            padding-bottom: 4px;
+            z-index: 10;
+        }
+
+        .cursive-title {
+            font-family: var(--font-script);
+            font-size: 2.4rem;
+            line-height: 0.9;
+            color: var(--lime-bright);
+            text-shadow: 0 0 18px rgba(209, 234, 75, 0.5);
+            transform: rotate(-2deg);
+            display: block;
+        }
+
+        /* RIGHT PANEL STYLING */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .top-right-tag-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .top-right-words {
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: var(--text-white);
+            font-weight: 700;
+            text-align: right;
+            line-height: 1.45;
+            text-transform: uppercase;
+        }
+
+        .top-right-accent-line {
+            width: 28px;
+            height: 2px;
+            background-color: var(--lime-bright);
+            margin-top: 6px;
+            box-shadow: 0 0 8px var(--lime-bright);
+        }
+
+        /* 2x2 Photo Cards Maintenance Grid */
+        .photo-grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 12px;
+            flex: 1;
+            margin-bottom: 12px;
+        }
+
+        .maintenance-card {
+            position: relative;
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .maintenance-card:hover {
+            border-color: var(--lime-bright);
+            box-shadow: 0 0 20px rgba(209, 234, 75, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .maintenance-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) contrast(1.08);
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+
+        .maintenance-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(1) contrast(1.12);
+        }
+
+        /* Translucent Label Box Badge */
+        .card-badge-overlay {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(4, 10, 5, 0.88);
+            backdrop-filter: blur(6px);
+            padding: 5px 10px;
+            border-left: 2px solid var(--lime-bright);
+            border-radius: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .maintenance-card:hover .card-badge-overlay {
+            background: rgba(4, 10, 5, 0.98);
+            border-left-width: 3px;
+        }
+
+        .card-badge-text {
+            font-size: 0.5rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* FOOTER BRAND BAR (Bottom Right) */
+        .bottom-right-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+            padding-top: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand-title {
+            font-family: var(--font-cinzel);
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-brand-title::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background-color: var(--lime-bright);
+        }
+
+        .footer-sub-tag {
+            font-size: 0.42rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Entrance Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-element {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Modal Lightbox Popup */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 3, 0.94);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card-container {
+            background: #09120a;
+            border: 1px solid var(--lime-bright);
+            border-radius: 4px;
+            padding: 24px;
+            max-width: 680px;
+            width: 90%;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.95), 0 0 40px rgba(209, 234, 75, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-card-container img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header-title {
+            font-family: var(--font-cinzel);
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--lime-bright);
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px rgba(209, 234, 75, 0.3);
+        }
+
+        .modal-subtitle {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1.5px;
+            margin-top: -8px;
+            text-transform: uppercase;
+        }
+
+        .modal-body-desc {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .modal-close-btn {
+            align-self: flex-end;
+            background: var(--lime-bright);
+            color: #030804;
+            border: none;
+            padding: 6px 22px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 16:9 Presentation Main Canvas Frame -->
+    <div class="presentation-slide">
+        
+        <!-- Ambient Foliage Backgrounds -->
+        <div class="top-foliage-bg"></div>
+        <div class="bottom-left-foliage"></div>
+
+        <!-- Main Content Area Grid -->
+        <div class="slide-content-grid">
+
+            <!-- LEFT PANEL: Header, Description, 3x2 Icon Grid & Script Quote -->
+            <div class="left-panel anim-element" style="animation-delay: 0.1s;">
+                
+                <div>
+                    <!-- Brand Top Tag -->
+                    <div class="brand-header-tag">ANANAMI LANDSCAPE</div>
+
+                    <!-- Main Title -->
+                    <h1 class="main-heading">
+                        LANDSCAPE
+                        <span class="lime-highlight">MAINTAINANCE</span>
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <div class="sub-heading">HEALTHY LANDSCAPE, LASTING BEAUTY</div>
+
+                    <!-- Description Text in Indonesian -->
+                    <p class="description-p">
+                        Perawatan rutin menjaga keindahan, kesehatan tanaman, dan kebersihan lanskap. Tim kami menggunakan metode dan peralatan yang tepat untuk memastikan taman Anda tetap asri, rapi, dan indah sepanjang waktu.
+                    </p>
+
+                    <!-- 3 Columns x 2 Rows Icon Grid -->
+                    <div class="services-icon-grid">
+                        
+                        <!-- Icon 1: Pruning -->
+                        <div class="icon-badge-item" data-title="PRUNING & TRIMMING" data-subtitle="Precision Topiary & Plant Care" data-img="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80" data-desc="Pemangkasan berkala untuk menjaga bentuk estetis pohon, merangsang pertumbuhan tunas baru yang sehat, serta mencegah timbulnya cabang mati.">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 4.75-3.5 8-8 8z"></path>
+                                </svg>
+                            </div>
+                            <div class="icon-label-text">PRUNING<br>& TRIMMING</div>
+                        </div>
+
+                        <!-- Icon 2: Fertilization -->
+                        <div class="icon-badge-item" data-title="FERTILIZATION & SOIL CARE" data-subtitle="Nutrient Management & Soil Health" data-img="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" data-desc="Pemberian nutrisi organik dan pupuk berimbang sesuai kebutuhan spesifik setiap jenis tanaman untuk menjaga kesuburan tanah secara berkesinambungan.">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 20h10"></path>
+                                    <path d="M12 20v-8"></path>
+                                    <path d="M12 12a5 5 0 0 1 5-5c0 4-3 5-5 5z"></path>
+                                    <path d="M12 12a5 5 0 0 0-5-5c0 4 3 5 5 5z"></path>
+                                </svg>
+                            </div>
+                            <div class="icon-label-text">FERTILIZATION<br>& SOIL CARE</div>
+                        </div>
+
+                        <!-- Icon 3: Watering -->
+                        <div class="icon-badge-item" data-title="WATERING MANAGEMENT" data-subtitle="Optimized Irrigation Systems" data-img="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a81?auto=format&fit=crop&w=800&q=80" data-desc="Pengaturan jadwal penyiraman presisi dan pemeliharaan sistem irigasi tetes agar kelembaban tanaman senantiasa terjaga tanpa pemborosan air.">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="icon-label-text">WATERING<br>MANAGEMENT</div>
+                        </div>
+
+                        <!-- Icon 4: Pest Control -->
+                        <div class="icon-badge-item" data-title="PEST & DISEASE CONTROL" data-subtitle="Eco-Friendly Botanical Protection" data-img="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80" data-desc="Inspeksi rutin dan penanganan hama serta penyakit tanaman menggunakan metode aman terpadu untuk melindungi ekosistem lanskap.">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2v3a5 5 0 0 0 10 0v-3h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5z"></path>
+                                </svg>
+                            </div>
+                            <div class="icon-label-text">PEST & DISEASE<br>CONTROL</div>
+                        </div>
+
+                        <!-- Icon 5: Cleaning -->
+                        <div class="icon-badge-item" data-title="CLEANING & DEBRIS REMOVAL" data-subtitle="Hardscape & Softscape Maintenance" data-img="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80" data-desc="Pembersihan serasah daun, gulma, dan kotoran pada area batu alam, jalan setapak, serta kolam untuk penampilan area lanskap yang selalu rapi.">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6h18"></path>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </div>
+                            <div class="icon-label-text">CLEANING<br>& DEBRIS REMOVAL</div>
+                        </div>
+
+                        <!-- Icon 6: Scheduled Maintenance -->
+                        <div class="icon-badge-item" data-title="SCHEDULED MAINTENANCE" data-subtitle="Custom Routine Care Programs" data-img="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80" data-desc="Program pemeliharaan terjadwal harian, mingguan, maupun bulanan yang dirancang khusus sesuai skala dan karakteristik taman Anda.">
+                            <div class="icon-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div class="icon-label-text">SCHEDULED<br>MAINTENANCE</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Divider Line & Tag -->
+                    <div class="divider-tag-wrapper">
+                        <div class="thin-line"></div>
+                        <div class="care-tag-text">BEAUTIFUL SPACES THROUGH CONSISTENT CARE</div>
+                    </div>
+                </div>
+
+                <!-- Cursive Accent Quote -->
+                <div class="script-quote-container">
+                    <span class="cursive-title">Greener Everyday</span>
+                </div>
+
+            </div>
+
+            <!-- RIGHT PANEL: Top Right Tagline, 2x2 Photo Grid & Bottom Footer -->
+            <div class="right-panel anim-element" style="animation-delay: 0.3s;">
+                
+                <!-- Top Right Vertical Tagline Block -->
+                <div class="top-right-tag-block">
+                    <div class="top-right-words">
+                        PEOPLE<br>
+                        PLANTS<br>
+                        PLACES<br>
+                        A BETTER<br>
+                        TOMORROW
+                    </div>
+                    <div class="top-right-accent-line"></div>
+                </div>
+
+                <!-- 2x2 Photo Cards Maintenance Grid -->
+                <div class="photo-grid-2x2">
+                    
+                    <!-- Card 1: Plant Care & Pruning -->
+                    <div class="maintenance-card" data-title="PLANT CARE & PRUNING" data-subtitle="Expert Topiary Shaping & Health Management" data-img="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80" data-desc="Tim ahli Ananami Landscape sedang melakukan pemangkasan halus pada pohon cemara bonsai berbentuk bonsai cloud tree untuk mempertahankan bentuk artistik dan merangsang percabangan baru.">
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=600&q=80" alt="Plant Care & Pruning">
+                        <div class="card-badge-overlay">
+                            <span class="card-badge-text">PLANT CARE & PRUNING</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Cleaning & Maintenance -->
+                    <div class="maintenance-card" data-title="CLEANING & MAINTENANCE" data-subtitle="Hedge Trimming & Wall Vegetation Control" data-img="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a81?auto=format&fit=crop&w=800&q=80" data-desc="Pembersihan menyeluruh pada area dinding batu dan pemangkasan bunga Bougainvillea mekar agar tampilan pagar dan lansekap eksterior senantiasa bersih dan memesona.">
+                        <img src="https://images.unsplash.com/photo-1592417817098-8f3d6ef23a81?auto=format&fit=crop&w=600&q=80" alt="Cleaning & Maintenance">
+                        <div class="card-badge-overlay">
+                            <span class="card-badge-text">CLEANING & MAINTENANCE</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Watering & Fertilization -->
+                    <div class="maintenance-card" data-title="WATERING & FERTILIZATION" data-subtitle="Hydration Management & Foliar Nutrition" data-img="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" data-desc="Pemberian air dan nutrisi pupuk cair menggunakan sistem spray bertekanan terkontrol langsung ke daun dan akar untuk memperkuat vigor dan kesegaran dedaunan tropis.">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" alt="Watering & Fertilization">
+                        <div class="card-badge-overlay">
+                            <span class="card-badge-text">WATERING & FERTILIZATION</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Inspection & Plant Health -->
+                    <div class="maintenance-card" data-title="INSPECTION & PLANT HEALTH" data-subtitle="Botanical Health Diagnostic & Disease Control" data-img="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80" data-desc="Pemeriksaan mendalam oleh spesialis hortikultura terhadap kondisi kesehatan dedaunan, deteksi dini hama, serta tindakan preventif guna menjamin vitalitas taman jangka panjang.">
+                        <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80" alt="Inspection & Plant Health">
+                        <div class="card-badge-overlay">
+                            <span class="card-badge-text">INSPECTION & PLANT HEALTH</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Right Brand Footer Bar -->
+                <div class="bottom-right-footer">
+                    <div class="footer-brand-title">ANANAMI LANDSCAPE</div>
+                    <div class="footer-sub-tag">NATURE IN GOOD HANDS</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Interactive Detail Inspection Lightbox Modal -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-card-container">
+            <div class="modal-header-title" id="mTitle">PLANT CARE & PRUNING</div>
+            <div class="modal-subtitle" id="mSubtitle">EXPERT TOPIARY SHAPING</div>
+            <img src="" alt="Maintenance Inspection" id="mImg">
+            <p class="modal-body-desc" id="mDesc">Description detail text goes here...</p>
+            <button class="modal-close-btn" id="mClose">CLOSE PREVIEW</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const clickableElements = document.querySelectorAll('.maintenance-card, .icon-badge-item');
+            const modal = document.getElementById('detailModal');
+            const mTitle = document.getElementById('mTitle');
+            const mSubtitle = document.getElementById('mSubtitle');
+            const mImg = document.getElementById('mImg');
+            const mDesc = document.getElementById('mDesc');
+            const mClose = document.getElementById('mClose');
+
+            clickableElements.forEach(el => {
+                el.addEventListener('click', () => {
+                    const title = el.getAttribute('data-title');
+                    const subtitle = el.getAttribute('data-subtitle');
+                    const img = el.getAttribute('data-img');
+                    const desc = el.getAttribute('data-desc');
+
+                    if (title && img) {
+                        mTitle.textContent = title;
+                        mSubtitle.textContent = subtitle || 'PROFESSIONAL LANDSCAPE SERVICES';
+                        mImg.src = img;
+                        mDesc.textContent = desc || 'Ananami Landscape delivers precision maintenance solutions tailored to enhance greenery, plant health, and long-term aesthetic beauty.';
+
+                        modal.classList.add('active');
+                    }
+                });
+            });
+
+            mClose.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

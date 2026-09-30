@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Landscape Details</title>
+    <!-- Google Fonts for Luxury Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-dark: #070e08;
+            --card-dark: rgba(12, 22, 14, 0.85);
+            --lime-accent: #d1ea4b;
+            --lime-glow: rgba(209, 234, 75, 0.4);
+            --text-white: #ffffff;
+            --text-muted: #8e9a90;
+            --font-cinzel: 'Cinzel', serif;
+            --font-playfair: 'Playfair Display', serif;
+            --font-montserrat: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #030604;
+            color: var(--text-white);
+            font-family: var(--font-montserrat);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 15px;
+        }
+
+        /* 16:9 Presentation Frame Container */
+        .presentation-frame {
+            width: 100%;
+            max-width: 1600px;
+            aspect-ratio: 16 / 9;
+            background: radial-gradient(circle at 50% 30%, #0d1a0f 0%, #050a06 100%);
+            border: 1px solid rgba(209, 234, 75, 0.15);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 40px rgba(209, 234, 75, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Subtle Ambient Leaf Overlay */
+        .ambient-bg {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(ellipse at bottom right, rgba(209, 234, 75, 0.03), transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Top Main Content Area */
+        .top-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 16px;
+            padding: 20px 20px 10px 20px;
+            flex: 1;
+            z-index: 2;
+            height: calc(100% - 90px);
+        }
+
+        @media (min-width: 1400px) {
+            .top-content-grid {
+                grid-template-columns: 1fr 380px;
+            }
+        }
+
+        /* Hero Image Container */
+        .hero-viewport {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 1.5px solid var(--lime-accent);
+            overflow: hidden;
+            background-color: #040805;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.92) contrast(1.05);
+            transition: transform 12s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .hero-viewport:hover .hero-img {
+            transform: scale(1.03);
+        }
+
+        /* Overlay Branding Block on Top Left of Hero Image */
+        .hero-branding-overlay {
+            position: absolute;
+            top: 24px;
+            left: 28px;
+            z-index: 10;
+            background: linear-gradient(135deg, rgba(5, 10, 6, 0.88) 0%, rgba(5, 10, 6, 0.4) 100%);
+            backdrop-filter: blur(8px);
+            padding: 16px 20px;
+            border-left: 2px solid var(--lime-accent);
+            border-radius: 0 6px 6px 0;
+            pointer-events: auto;
+        }
+
+        .brand-header-title {
+            font-family: var(--font-cinzel);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            line-height: 1;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .brand-header-sub {
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .divider-line {
+            width: 35px;
+            height: 1.5px;
+            background-color: var(--lime-accent);
+            margin-bottom: 14px;
+        }
+
+        .main-title-group h1 {
+            font-family: var(--font-cinzel);
+            font-size: 2.1rem;
+            line-height: 0.95;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+        }
+
+        .main-title-group h1 span.highlight {
+            color: var(--lime-accent);
+            display: block;
+            text-shadow: 0 0 15px rgba(209, 234, 75, 0.3);
+        }
+
+        .brand-taglines {
+            margin-top: 18px;
+            font-size: 0.58rem;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        /* Plant Marker Circles (1-7) */
+        .plant-marker {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: var(--lime-accent);
+            color: #070d08;
+            font-weight: 800;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 3px rgba(7, 13, 8, 0.6), 0 4px 12px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Pulsing Ring Effect */
+        .plant-marker::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 1.5px solid var(--lime-accent);
+            animation: pulseRing 2.2s infinite ease-out;
+            pointer-events: none;
+        }
+
+        .plant-marker:hover, .plant-marker.active-marker {
+            transform: translate(-50%, -50%) scale(1.3);
+            background-color: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 20px var(--lime-accent), 0 0 0 4px rgba(209, 234, 75, 0.5);
+            z-index: 25;
+        }
+
+        .plant-marker:hover::after, .plant-marker.active-marker::after {
+            animation-duration: 1s;
+        }
+
+        /* Marker Popup Tooltip */
+        .marker-tooltip {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: rgba(5, 10, 6, 0.92);
+            border: 1px solid var(--lime-accent);
+            padding: 6px 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+        }
+
+        .marker-tooltip .tt-title {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--lime-accent);
+            letter-spacing: 1px;
+        }
+
+        .marker-tooltip .tt-latin {
+            font-family: var(--font-playfair);
+            font-style: italic;
+            font-size: 0.55rem;
+            color: var(--text-white);
+        }
+
+        .plant-marker:hover .marker-tooltip,
+        .plant-marker.active-marker .marker-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Right Side - Plant Legend Panel */
+        .legend-panel {
+            background-color: var(--card-dark);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            padding: 16px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .legend-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(209, 234, 75, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .legend-header-bar h2 {
+            font-family: var(--font-cinzel);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-white);
+        }
+
+        .legend-header-bar h2 span {
+            color: var(--lime-accent);
+        }
+
+        .legend-tags {
+            font-size: 0.45rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-align: right;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        /* Legend Plant Scroll Container */
+        .legend-plant-list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            overflow-y: auto;
+            padding-right: 4px;
+            flex: 1;
+        }
+
+        .legend-plant-list::-webkit-scrollbar {
+            width: 3px;
+        }
+        .legend-plant-list::-webkit-scrollbar-thumb {
+            background: rgba(209, 234, 75, 0.3);
+            border-radius: 3px;
+        }
+
+        /* Plant Item Card */
+        .plant-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 5px 8px 5px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .plant-card:hover, .plant-card.active-card {
+            background: rgba(209, 234, 75, 0.08);
+            border-color: var(--lime-accent);
+            transform: translateX(-3px);
+            box-shadow: -4px 0 12px rgba(209, 234, 75, 0.15);
+        }
+
+        .card-thumb-wrap {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .card-thumb-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .plant-card:hover .card-thumb-wrap img {
+            transform: scale(1.15);
+        }
+
+        .badge-num {
+            width: 18px;
+            height: 18px;
+            background-color: var(--lime-accent);
+            color: #070d08;
+            font-weight: 800;
+            font-size: 0.6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        .plant-card-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .plant-card-title-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .plant-card-title {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .plant-card-latin {
+            font-family: var(--font-playfair);
+            font-style: italic;
+            font-size: 0.5rem;
+            color: #b0bbb2;
+            margin-bottom: 2px;
+            line-height: 1.1;
+        }
+
+        .plant-card-desc {
+            font-size: 0.46rem;
+            color: var(--text-muted);
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Bottom Section - Material Palette & Footer */
+        .bottom-bar {
+            height: 85px;
+            background: rgba(4, 8, 5, 0.95);
+            border-top: 1px solid rgba(209, 234, 75, 0.2);
+            padding: 8px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        /* Material Palette Left Group */
+        .material-palette-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .palette-title {
+            font-family: var(--font-cinzel);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--text-white);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .palette-title span {
+            color: var(--lime-accent);
+            display: block;
+        }
+
+        .swatches-flex {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .swatch-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .swatch-thumb {
+            width: 48px;
+            height: 38px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .swatch-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.2) contrast(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        .swatch-item:hover .swatch-thumb {
+            border-color: var(--lime-accent);
+            box-shadow: 0 0 10px rgba(209, 234, 75, 0.3);
+        }
+
+        .swatch-item:hover .swatch-thumb img {
+            transform: scale(1.15);
+            filter: grayscale(0);
+        }
+
+        .swatch-label {
+            font-size: 0.44rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .swatch-item:hover .swatch-label {
+            color: var(--text-white);
+        }
+
+        /* Footer Center Text Tags */
+        .footer-center-tags {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.48rem;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .footer-center-tags span.dot {
+            width: 3px;
+            height: 3px;
+            background-color: var(--lime-accent);
+            border-radius: 50%;
+        }
+
+        /* Footer Right Logo Block */
+        .footer-right-brand {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .rf-brand-name {
+            font-family: var(--font-cinzel);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1.5px;
+            line-height: 1;
+        }
+
+        .rf-brand-sub {
+            font-size: 0.38rem;
+            letter-spacing: 3.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .rf-brand-motto {
+            font-size: 0.42rem;
+            letter-spacing: 1.8px;
+            color: var(--lime-accent);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+            70% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-enter {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Modal Preview for Swatches */
+        .swatch-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .swatch-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #08120a;
+            border: 1px solid var(--lime-accent);
+            border-radius: 6px;
+            padding: 24px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .modal-title {
+            font-family: var(--font-cinzel);
+            font-size: 1.1rem;
+            color: var(--lime-accent);
+            margin-bottom: 6px;
+        }
+
+        .modal-desc {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .modal-close-btn {
+            background: var(--lime-accent);
+            color: #000;
+            border: none;
+            padding: 6px 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Presentation Main Frame Container (16:9 Aspect Ratio) -->
+    <div class="presentation-frame">
+        <div class="ambient-bg"></div>
+
+        <!-- Top Content Grid -->
+        <div class="top-content-grid">
+
+            <!-- Hero Image with Overlay Branding & Interactive Markers -->
+            <div class="hero-viewport animate-enter">
+                
+                <!-- Balinese Entrance Hero Image -->
+                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=85" 
+                     alt="Balinese Landscape Details Entrance" 
+                     class="hero-img" 
+                     id="heroImage">
+
+                <!-- Top Left Branding Card Overlay -->
+                <div class="hero-branding-overlay">
+                    <div class="brand-header-title">Ananami</div>
+                    <div class="brand-header-sub">LANDSCAPE</div>
+                    <div class="divider-line"></div>
+                    <div class="main-title-group">
+                        <h1>LANDSCAPE<br><span class="highlight">DETAILS</span></h1>
+                    </div>
+                    <div class="brand-taglines">
+                        NATURE<br>
+                        PEOPLE<br>
+                        BETTER SPACES
+                    </div>
+                </div>
+
+                <!-- 7 Numbered Interactive Plant Markers on Hero Image -->
+                
+                <!-- Marker 1: Kamboja Bali (Tree top center) -->
+                <div class="plant-marker" style="top: 25%; left: 43%;" data-plant="1">
+                    1
+                    <div class="marker-tooltip">
+                        <div class="tt-title">1. KAMBOJA BALI</div>
+                        <div class="tt-latin">Plumeria spp.</div>
+                    </div>
+                </div>
+
+                <!-- Marker 2: Pisang Hias (Heliconia - left mid) -->
+                <div class="plant-marker" style="top: 52%; left: 41%;" data-plant="2">
+                    2
+                    <div class="marker-tooltip">
+                        <div class="tt-title">2. PISANG HIAS</div>
+                        <div class="tt-latin">Heliconia spp.</div>
+                    </div>
+                </div>
+
+                <!-- Marker 3: Hanjuang Merah (Cordyline - center ground) -->
+                <div class="plant-marker" style="top: 59%; left: 45%;" data-plant="3">
+                    3
+                    <div class="marker-tooltip">
+                        <div class="tt-title">3. HANJUANG MERAH</div>
+                        <div class="tt-latin">Cordyline fruticosa</div>
+                    </div>
+                </div>
+
+                <!-- Marker 4: Melati Mini (Groundcover lower center) -->
+                <div class="plant-marker" style="top: 70%; left: 43%;" data-plant="4">
+                    4
+                    <div class="marker-tooltip">
+                        <div class="tt-title">4. MELATI MINI</div>
+                        <div class="tt-latin">Jasminum sambac 'Dwarf'</div>
+                    </div>
+                </div>
+
+                <!-- Marker 5: Pucuk Merah (Shrub upper right behind pot) -->
+                <div class="plant-marker" style="top: 42%; left: 65%;" data-plant="5">
+                    5
+                    <div class="marker-tooltip">
+                        <div class="tt-title">5. PUCUK MERAH</div>
+                        <div class="tt-latin">Syzygium oleina</div>
+                    </div>
+                </div>
+
+                <!-- Marker 6: Liriope (Pathway border right) -->
+                <div class="plant-marker" style="top: 59%; left: 57%;" data-plant="6">
+                    6
+                    <div class="marker-tooltip">
+                        <div class="tt-title">6. LIRIOPE</div>
+                        <div class="tt-latin">Liriope muscari</div>
+                    </div>
+                </div>
+
+                <!-- Marker 7: Monstera Mini / Planter Pot (Right lower area) -->
+                <div class="plant-marker" style="top: 67%; left: 67%;" data-plant="7">
+                    7
+                    <div class="marker-tooltip">
+                        <div class="tt-title">7. MONSTERA MINI</div>
+                        <div class="tt-latin">Monstera deliciosa</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Panel - Plant Legend -->
+            <div class="legend-panel animate-enter" style="animation-delay: 0.2s;">
+                <div class="legend-header-bar">
+                    <h2>PLANT <span>LEGEND</span></h2>
+                    <div class="legend-tags">
+                        TROPICAL<br>SUSTAINABLE<br>TIMELESS
+                    </div>
+                </div>
+
+                <!-- Scrollable Plant Legend List -->
+                <div class="legend-plant-list" id="plantLegendList">
+
+                    <!-- Plant Item 1 -->
+                    <div class="plant-card" data-plant="1">
+                        <div class="card-thumb-wrap">
+                            <img src="https://images.unsplash.com/photo-1599824422221-50e50438b4d8?auto=format&fit=crop&w=200&q=80" alt="Kamboja Bali">
+                        </div>
+                        <div class="badge-num">1</div>
+                        <div class="plant-card-info">
+                            <div class="plant-card-title">KAMBOJA BALI</div>
+                            <div class="plant-card-latin">Plumeria spp.</div>
+                            <div class="plant-card-desc">Iconic tropical tree with fragrant flowers, symbol of Bali.</div>
+                        </div>
+                    </div>
+
+                    <!-- Plant Item 2 -->
+                    <div class="plant-card" data-plant="2">
+                        <div class="card-thumb-wrap">
+                            <img src="https://images.unsplash.com/photo-1610360341103-625293674ce8?auto=format&fit=crop&w=200&q=80" alt="Pisang Hias">
+                        </div>
+                        <div class="badge-num">2</div>
+                        <div class="plant-card-info">
+                            <div class="plant-card-title">PISANG HIAS</div>
+                            <div class="plant-card-latin">Heliconia spp.</div>
+                            <div class="plant-card-desc">Creates a lush tropical atmosphere with bold foliage.</div>
+                        </div>
+                    </div>
+
+                    <!-- Plant Item 3 -->
+                    <div class="plant-card" data-plant="3">
+                        <div class="card-thumb-wrap">
+                            <img src="https://images.unsplash.com/photo-1612053423719-7981cc1c18fb?auto=format&fit=crop&w=200&q=80" alt="Hanjuang Merah">
+                        </div>
+                        <div class="badge-num">3</div>
+                        <div class="plant-card-info">
+                            <div class="plant-card-title">HANJUANG MERAH</div>
+                            <div class="plant-card-latin">Cordyline fruticosa</div>
+                            <div class="plant-card-desc">Adds vibrant color and tropical texture.</div>
+                        </div>
+                    </div>
+
+                    <!-- Plant Item 4 -->
+                    <div class="plant-card" data-plant="4">
+                        <div class="card-thumb-wrap">
+                            <img src="https://images.unsplash.com/photo-1629730071378-040243be1ea1?auto=format&fit=crop&w=200&q=80" alt="Melati Mini">
+                        </div>
+                        <div class="badge-num">4</div>
+                        <div class="plant-card-info">
+                            <div class="plant-card-title">MELATI MINI</div>
+                            <div class="plant-card-latin">Jasminum sambac 'Dwarf'</div>
+                            <div class="plant-card-desc">Fragrant groundcover for a soft, natural edge.</div>
+                        </div>
+                    </div>
+
+                    <!-- Plant Item 5 -->
+                    <div class="plant-card" data-plant="5">
+                        <div class="card-thumb-wrap">
+                            <img src="https://images.unsplash.com/photo-1659779357064-ba36bba78c94?auto=format&fit=crop&w=200&q=80" alt="Pucuk Merah">
+                        </div>
+                        <div class="badge-num">5</div>
+                        <div class="plant-card-info">
+                            <div class="plant-card-title">PUCUK MERAH</div>
+                            <div class="plant-card-latin">Syzygium oleina</div>
+                            <div class="plant-card-desc">Evergreen shrub, ideal for privacy and structure.</div>
+                        </div>
+                    </div>
+
+                    <!-- Plant Item 6 -->
+                    <div class="plant-card" data-plant="6">
+                        <div class="card-thumb-wrap">
+                            <img src="https://images.unsplash.com/photo-1595055018659-335bb951811e?auto=format&fit=crop&w=200&q=80" alt="Liriope">
+                        </div>
+                        <div class="badge-num">6</div>
+                        <div class="plant-card-info">
+                            <div class="plant-card-title">LIRIOPE</div>
+                            <div class="plant-card-latin">Liriope muscari</div>
+                            <div class="plant-card-desc">Neat border plant with elegant texture.</div>
+                        </div>
+                    </div>
+
+                    <!-- Plant Item 7 -->
+                    <div class="plant-card" data-plant="7">
+                        <div class="card-thumb-wrap">
+                            <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=200&q=80" alt="Monstera Mini">
+                        </div>
+                        <div class="badge-num">7</div>
+                        <div class="plant-card-info">
+                            <div class="plant-card-title">MONSTERA MINI</div>
+                            <div class="plant-card-latin">Monstera deliciosa</div>
+                            <div class="plant-card-desc">Tropical foliage to enhance lushness.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar: Material Palette & Footer -->
+        <div class="bottom-bar animate-enter" style="animation-delay: 0.4s;">
+
+            <!-- Material Palette -->
+            <div class="material-palette-group">
+                <div class="palette-title">
+                    MATERIAL <span>PALETTE</span>
+                </div>
+                <div class="swatches-flex">
+
+                    <!-- Swatch 1: Natural Stone -->
+                    <div class="swatch-item" data-title="NATURAL STONE" data-img="https://images.unsplash.com/photo-1590725140246-20acdee442be?auto=format&fit=crop&w=500&q=80" data-desc="Authentic Balinese Paras & slate stone paving with rustic non-slip texture.">
+                        <div class="swatch-thumb">
+                            <img src="https://images.unsplash.com/photo-1590725140246-20acdee442be?auto=format&fit=crop&w=200&q=80" alt="Natural Stone">
+                        </div>
+                        <div class="swatch-label">NATURAL STONE</div>
+                    </div>
+
+                    <!-- Swatch 2: Lava Stone -->
+                    <div class="swatch-item" data-title="LAVA STONE" data-img="https://images.unsplash.com/photo-1578885136359-16c8bd4d3a8e?auto=format&fit=crop&w=500&q=80" data-desc="Volcanic black basalt stone tiles, highly durable and heat resistant.">
+                        <div class="swatch-thumb">
+                            <img src="https://images.unsplash.com/photo-1578885136359-16c8bd4d3a8e?auto=format&fit=crop&w=200&q=80" alt="Lava Stone">
+                        </div>
+                        <div class="swatch-label">LAVA STONE</div>
+                    </div>
+
+                    <!-- Swatch 3: Bali Brick -->
+                    <div class="swatch-item" data-title="BALI BRICK" data-img="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80" data-desc="Traditional hand-pressed terracotta red clay bricks for authentic Balinese entrance gates.">
+                        <div class="swatch-thumb">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=200&q=80" alt="Bali Brick">
+                        </div>
+                        <div class="swatch-label">BALI BRICK</div>
+                    </div>
+
+                    <!-- Swatch 4: Stone Carving -->
+                    <div class="swatch-item" data-title="STONE CARVING" data-img="https://images.unsplash.com/photo-1560800452-f2d475982b96?auto=format&fit=crop&w=500&q=80" data-desc="Handcrafted stone reliefs and traditional Balinese floral motifs.">
+                        <div class="swatch-thumb">
+                            <img src="https://images.unsplash.com/photo-1560800452-f2d475982b96?auto=format&fit=crop&w=200&q=80" alt="Stone Carving">
+                        </div>
+                        <div class="swatch-label">STONE CARVING</div>
+                    </div>
+
+                    <!-- Swatch 5: Teak Woodwork -->
+                    <div class="swatch-item" data-title="TEAK WOODWORK" data-img="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=500&q=80" data-desc="Weatherproof seasoned Teak timber for pergola accents and outdoor joinery.">
+                        <div class="swatch-thumb">
+                            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=200&q=80" alt="Teak Woodwork">
+                        </div>
+                        <div class="swatch-label">TEAK WOODWORK</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Footer Center Tagline -->
+            <div class="footer-center-tags">
+                STRUCTURE <span class="dot"></span> TIMELESS BALINESE STYLE <span class="dot"></span> NATURAL <span class="dot"></span> BRIGHTER
+            </div>
+
+            <!-- Footer Right Branding -->
+            <div class="footer-right-brand">
+                <div class="rf-brand-name">Ananami</div>
+                <div class="rf-brand-sub">LANDSCAPE</div>
+                <div class="rf-brand-motto">SPACES | PEOPLE | BETTER LIVES</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Material Swatch Inspection Modal -->
+    <div class="swatch-modal" id="swatchModal">
+        <div class="modal-card">
+            <img src="" alt="Swatch Preview" class="modal-img" id="modalImg">
+            <div class="modal-title" id="modalTitle">NATURAL STONE</div>
+            <div class="modal-desc" id="modalDesc">Material description goes here.</div>
+            <button class="modal-close-btn" id="modalCloseBtn">CLOSE PREVIEW</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const markers = document.querySelectorAll('.plant-marker');
+            const cards = document.querySelectorAll('.plant-card');
+            const swatchItems = document.querySelectorAll('.swatch-item');
+            const modal = document.getElementById('swatchModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+            // Function to set active plant item by ID (1-7)
+            function setActivePlant(plantId) {
+                markers.forEach(m => {
+                    if (m.getAttribute('data-plant') === String(plantId)) {
+                        m.classList.add('active-marker');
+                    } else {
+                        m.classList.remove('active-marker');
+                    }
+                });
+
+                cards.forEach(c => {
+                    if (c.getAttribute('data-plant') === String(plantId)) {
+                        c.classList.add('active-card');
+                        c.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    } else {
+                        c.classList.remove('active-card');
+                    }
+                });
+            }
+
+            // Function to clear all highlights
+            function clearActivePlant() {
+                markers.forEach(m => m.classList.remove('active-marker'));
+                cards.forEach(c => c.classList.remove('active-card'));
+            }
+
+            // Event Listeners for Markers on Image
+            markers.forEach(marker => {
+                const id = marker.getAttribute('data-plant');
+
+                marker.addEventListener('mouseenter', () => {
+                    setActivePlant(id);
+                });
+
+                marker.addEventListener('mouseleave', () => {
+                    clearActivePlant();
+                });
+
+                marker.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    setActivePlant(id);
+                });
+            });
+
+            // Event Listeners for Cards in Legend
+            cards.forEach(card => {
+                const id = card.getAttribute('data-plant');
+
+                card.addEventListener('mouseenter', () => {
+                    setActivePlant(id);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    clearActivePlant();
+                });
+
+                card.addEventListener('click', () => {
+                    setActivePlant(id);
+                });
+            });
+
+            // Material Swatch Inspection Popup
+            swatchItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const title = item.getAttribute('data-title');
+                    const img = item.getAttribute('data-img');
+                    const desc = item.getAttribute('data-desc');
+
+                    modalTitle.textContent = title;
+                    modalImg.src = img;
+                    modalDesc.textContent = desc;
+                    modal.classList.add('active');
+                });
+            });
+
+            modalCloseBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

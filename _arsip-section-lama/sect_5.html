@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananami Landscape - Company Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,600&display=swap');
+
+        :root {
+            --bg-color: #080d09;
+            --text-light: #e0e0e0;
+            --text-white: #ffffff;
+            --highlight: #d1ea4b;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-serif: 'Cinzel', serif;
+            --font-quote: 'Playfair Display', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            background-image: radial-gradient(circle at 10% 20%, rgba(13, 31, 16, 0.8) 0%, rgba(8, 13, 9, 1) 90%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 1400px;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: rgba(10, 15, 10, 0.95);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            /* Animasi masuk untuk container */
+            animation: fade-in 1s ease-out;
+        }
+
+        /* --- ANIMATIONS (KEYFRAMES) --- */
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slide-up {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slide-right {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* --- TOP NAV --- */
+        .top-nav {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0;
+            animation: slide-up 0.8s ease-out 1s forwards;
+        }
+        .top-nav span {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .top-nav span:hover {
+            color: var(--highlight);
+        }
+        .top-nav .line {
+            width: 40px;
+            height: 1px;
+            background-color: var(--highlight);
+            margin-left: 10px;
+        }
+
+        /* --- MAIN CONTENT WRAPPER --- */
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            padding: 40px;
+            padding-bottom: 0;
+        }
+
+        /* --- SIDEBAR LEFT --- */
+        .sidebar {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-right: 20px;
+            padding-bottom: 80px;
+        }
+
+        .logo-area {
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: slide-right 0.8s ease-out 0.2s forwards;
+        }
+        .logo-area svg {
+            width: 30px;
+            fill: var(--highlight);
+            margin-bottom: 5px;
+        }
+        .logo-area h1 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--text-white);
+            letter-spacing: 1px;
+        }
+        .logo-area h2 {
+            font-size: 0.8rem;
+            letter-spacing: 6px;
+            font-weight: 300;
+            margin-top: 5px;
+        }
+        .logo-area p {
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            color: #888;
+        }
+
+        .title-section {
+            opacity: 0;
+            animation: slide-right 0.8s ease-out 0.4s forwards;
+        }
+        .title-section .portfolio {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+        .title-section h1 {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            line-height: 1.1;
+            color: var(--text-white);
+            margin-bottom: 15px;
+        }
+        .title-section h1 span {
+            color: var(--highlight);
+        }
+        .title-section .desc {
+            font-size: 0.65rem;
+            line-height: 1.6;
+            letter-spacing: 1.5px;
+            margin-bottom: 40px;
+        }
+
+        .quote {
+            border-left: 2px solid var(--highlight);
+            padding-left: 15px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: slide-right 0.8s ease-out 0.6s forwards;
+        }
+        .quote p {
+            font-family: var(--font-quote);
+            font-size: 1.2rem;
+            color: var(--text-white);
+            line-height: 1.4;
+        }
+
+        .sidebar-bottom {
+            opacity: 0;
+            animation: slide-up 0.8s ease-out 0.8s forwards;
+        }
+        .sidebar-bottom p {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            color: #aaa;
+        }
+
+        /* --- GALLERY RIGHT --- */
+        .gallery {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: slide-up 1s ease-out 0.5s forwards;
+        }
+
+        .gallery-top {
+            display: flex;
+            height: 55%;
+            gap: 15px;
+        }
+
+        .gallery-bottom {
+            display: flex;
+            height: 35%;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .img-card {
+            position: relative;
+            overflow: hidden;
+            background-color: #111;
+            cursor: pointer;
+        }
+        .img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            /* Efek Zoom in lambat saat gambar disorot */
+            transition: transform 0.8s ease, opacity 0.5s ease;
+        }
+        
+        .img-card:hover img {
+            transform: scale(1.08);
+            opacity: 1;
+        }
+
+        .img-01 { flex: 2; }
+        .img-02 { flex: 1; }
+        .img-03 { width: 30%; height: 100%; }
+        
+        .row-text-items {
+            display: flex;
+            flex: 1;
+            justify-content: space-between;
+            padding-bottom: 10px;
+        }
+
+        .caption-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(4, 8, 5, 0.85);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            /* Animasi bar naik saat gambar di hover */
+            transform: translateY(5px);
+            transition: transform 0.5s ease, background 0.5s ease;
+        }
+
+        .img-card:hover .caption-bar {
+            transform: translateY(0);
+            background: rgba(4, 8, 5, 0.95);
+        }
+
+        .cap-num {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-right: 15px;
+            color: var(--text-white);
+            transition: color 0.3s ease;
+        }
+        
+        .img-card:hover .cap-num {
+            color: var(--highlight);
+        }
+
+        .cap-title {
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .cap-tag {
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            color: #888;
+            text-align: right;
+            max-width: 80px;
+        }
+
+        .text-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .text-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .text-item:hover .cap-num {
+            color: var(--highlight);
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            height: 100px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            background-color: rgba(5, 8, 6, 0.9);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            opacity: 0;
+            animation: slide-up 1s ease-out 1.2s forwards;
+        }
+
+        .features {
+            display: flex;
+            gap: 40px;
+            flex: 1;
+        }
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        .feature-item svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--highlight);
+            stroke-width: 1.5;
+            transition: stroke-width 0.3s ease;
+        }
+        .feature-item:hover svg {
+            stroke-width: 2;
+        }
+        .feature-item span {
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            text-align: center;
+            color: #bbb;
+            transition: color 0.3s ease;
+        }
+        .feature-item:hover span {
+            color: var(--text-white);
+        }
+
+        .footer-divider {
+            width: 1px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.2);
+            margin: 0 30px;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--text-white);
+        }
+
+        .footer-logo {
+            margin-left: auto;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .f-logo-text h3 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-white);
+            font-weight: 400;
+        }
+        .f-logo-text p {
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+        }
+        .f-end-text {
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            color: #888;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Top Right Nav -->
+    <div class="top-nav">
+        <span>TROPICAL</span>
+        <span>SUSTAINABLE</span>
+        <span>TIMELESS</span>
+        <div class="line"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-area">
+                <svg viewBox="0 0 24 24"><path d="M12,2C8,2,4,5,4,9c0,3.5,2.5,6.5,6,8.5c0.5,2.5,1,4.5,2,4.5c1,0,1.5-2,2-4.5c3.5-2,6-5,6-8.5 C20,5,16,2,12,2z M12,15c-2.5-1.5-4-3.5-4-6c0-2.5,2-4,4-4s4,1.5,4,4C16,11.5,14.5,13.5,12,15z"/></svg>
+                <h1>Ananami</h1>
+                <h2>LANDSCAPE</h2>
+                <p>DESIGN | BUILD | MAINTAIN</p>
+            </div>
+
+            <div class="title-section">
+                <p class="portfolio">PORTFOLIO</p>
+                <h1>LANDSCAPE<br><span>DESIGN</span></h1>
+                <p class="desc">OUTDOOR SPACES<br>FOR A BRIGHTER<br>TOMORROW</p>
+            </div>
+
+            <div class="quote">
+                <p>"More<br>Than a Garden<br>A Way of Life"</p>
+            </div>
+
+            <div class="sidebar-bottom">
+                <p>NATURE<br>PEOPLE<br>BETTER SPACES</p>
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="gallery">
+            <div class="gallery-top">
+                <!-- Image 01 -->
+                <div class="img-card img-01">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Private Villa Lombok">
+                    <div class="caption-bar">
+                        <span class="cap-num">01</span>
+                        <div class="cap-title">PRIVATE VILLA<br>LOMBOK, INDONESIA</div>
+                        <div class="cap-tag">NATURE MEETS LUXURY</div>
+                    </div>
+                </div>
+                <!-- Image 02 -->
+                <div class="img-card img-02">
+                    <img src="https://images.unsplash.com/photo-1576013551627-11971f366961?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pool Area Tabanan">
+                    <div class="caption-bar">
+                        <span class="cap-num">02</span>
+                        <div class="cap-title">POOL & SERVICE AREA<br>TABANAN, BALI</div>
+                        <div class="cap-tag" style="text-align: left; max-width: 100px;">FUNCTIONAL<br>GREEN LIVING</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-bottom">
+                <!-- Image 03 -->
+                <div class="img-card img-03">
+                    <img src="https://images.unsplash.com/photo-1584043940172-e1a5f4bb5eb8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Garden Pathway Bali">
+                    <div class="caption-bar">
+                        <span class="cap-num">03</span>
+                        <div class="cap-title">GARDEN PATHWAY<br>BALI, INDONESIA</div>
+                        <div class="cap-tag">TROPICAL<br>ATMOSPHERE</div>
+                    </div>
+                </div>
+                
+                <!-- Text Items 04, 05, 06 -->
+                <div class="row-text-items">
+                    <div class="text-item">
+                        <span class="cap-num">04</span>
+                        <div class="cap-title" style="color: #bbb;">TROPICAL GARDEN<br>BALI, INDONESIA</div>
+                        <div class="cap-tag" style="margin-left: 20px;">CULTURE<br>IN NATURE</div>
+                    </div>
+                    <div class="text-item">
+                        <span class="cap-num">05</span>
+                        <div class="cap-title" style="color: #bbb;">SPA & WATER FEATURE<br>LOMBOK, INDONESIA</div>
+                        <div class="cap-tag" style="margin-left: 20px;">RELAX<br>REJUVENATE</div>
+                    </div>
+                    <div class="text-item" style="padding-right: 20px;">
+                        <span class="cap-num">06</span>
+                        <div class="cap-title" style="color: #bbb;">LOUNGE AREA<br>LOMBOK, INDONESIA</div>
+                        <div class="cap-tag" style="margin-left: 20px;">BREATHAKING<br>SUNSET</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="features">
+            <div class="feature-item">
+                <svg viewBox="0 0 24 24"><path d="M12,2C7.5,2,4,6,4,10.5c0,3,1.5,5.5,4,7.5v4h8v-4c2.5-2,4-4.5,4-7.5C20,6,16.5,2,12,2z M12,18v3 M12,2v16"/></svg>
+                <span>TROPICAL<br>PLANTING</span>
+            </div>
+            <div class="feature-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2L3 8l3 3-2 3 3 2-2 3h14l-2-3 3-2-2-3 3-3L12 2z M11 19v3h2v-3"/></svg>
+                <span>NATURAL<br>MATERIALS</span>
+            </div>
+            <div class="feature-item">
+                <svg viewBox="0 0 24 24"><path d="M2 12c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3 M2 18c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3"/></svg>
+                <span>TIMELESS<br>DESIGN</span>
+            </div>
+            <div class="feature-item">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10"/></svg>
+                <span>SUSTAINABLE<br>LIVING</span>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-tagline">
+            A GREENER<br>TOMORROW
+        </div>
+
+        <div class="footer-logo">
+            <div class="f-logo-text">
+                <h3>Ananami</h3>
+                <p>LANDSCAPE</p>
+            </div>
+            <div class="f-end-text">
+                SPACES<br>PEOPLE<br>BETTER LIVES
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
